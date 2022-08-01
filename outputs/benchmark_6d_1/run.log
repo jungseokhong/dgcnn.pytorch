@@ -1,0 +1,314 @@
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Train 0, loss: 1.045591, train acc: 0.871676, train avg acc: 0.790743, train iou: 0.693156
+Test 0, loss: 0.949903, test acc: 0.946149, test avg acc: 0.898263, test iou: 0.833018
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Train 0, loss: 1.048470, train acc: 0.869915, train avg acc: 0.786787, train iou: 0.688670
+Test 0, loss: 0.934890, test acc: 0.956260, test avg acc: 0.918979, test iou: 0.862079
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Train 0, loss: 1.057169, train acc: 0.864097, train avg acc: 0.777253, train iou: 0.678293
+Test 0, loss: 0.944096, test acc: 0.950146, test avg acc: 0.908011, test iou: 0.848329
+Train 1, loss: 0.905554, train acc: 0.983881, train avg acc: 0.971254, train iou: 0.946354
+Test 1, loss: 0.892109, test acc: 0.985944, test avg acc: 0.974689, test iou: 0.952677
+Train 2, loss: 0.883432, train acc: 0.994979, train avg acc: 0.991709, train iou: 0.983958
+Test 2, loss: 0.870656, test acc: 0.996512, test avg acc: 0.994369, test iou: 0.989032
+Train 3, loss: 0.878110, train acc: 0.996976, train avg acc: 0.995277, train iou: 0.990826
+Test 3, loss: 0.884275, test acc: 0.994399, test avg acc: 0.990626, test iou: 0.981886
+Train 4, loss: 0.874899, train acc: 0.997975, train avg acc: 0.996968, train iou: 0.994104
+Test 4, loss: 0.864277, test acc: 0.998364, test avg acc: 0.997609, test iou: 0.995368
+Train 5, loss: 0.896725, train acc: 0.987795, train avg acc: 0.980374, train iou: 0.962968
+Test 5, loss: 0.876390, test acc: 0.996359, test avg acc: 0.994164, test iou: 0.988567
+Train 6, loss: 0.876488, train acc: 0.997878, train avg acc: 0.996973, train iou: 0.994135
+Test 6, loss: 0.864819, test acc: 0.998389, test avg acc: 0.997751, test iou: 0.995687
+Train 7, loss: 0.873302, train acc: 0.998558, train avg acc: 0.997949, train iou: 0.996021
+Test 7, loss: 0.863894, test acc: 0.998915, test avg acc: 0.998616, test iou: 0.997285
+Train 8, loss: 0.871591, train acc: 0.998939, train avg acc: 0.998491, train iou: 0.997057
+Test 8, loss: 0.862854, test acc: 0.999100, test avg acc: 0.998817, test iou: 0.997615
+Train 9, loss: 0.876411, train acc: 0.997364, train avg acc: 0.995874, train iou: 0.991943
+Test 9, loss: 0.865365, test acc: 0.999030, test avg acc: 0.998744, test iou: 0.997536
+Train 10, loss: 0.870611, train acc: 0.999166, train avg acc: 0.998835, train iou: 0.997706
+Test 10, loss: 0.861642, test acc: 0.999355, test avg acc: 0.999151, test iou: 0.998259
+Train 11, loss: 0.870319, train acc: 0.999122, train avg acc: 0.998735, train iou: 0.997533
+Test 11, loss: 0.862005, test acc: 0.999327, test avg acc: 0.999057, test iou: 0.998112
+Train 12, loss: 0.869136, train acc: 0.999366, train avg acc: 0.999123, train iou: 0.998264
+Test 12, loss: 0.860634, test acc: 0.999428, test avg acc: 0.999247, test iou: 0.998504
+Train 13, loss: 0.879749, train acc: 0.995368, train avg acc: 0.992959, train iou: 0.986381
+Test 13, loss: 0.862752, test acc: 0.998940, test avg acc: 0.998724, test iou: 0.997425
+Train 14, loss: 0.869753, train acc: 0.999182, train avg acc: 0.998897, train iou: 0.997805
+Test 14, loss: 0.862115, test acc: 0.999404, test avg acc: 0.999290, test iou: 0.998554
+Train 15, loss: 0.871664, train acc: 0.998515, train avg acc: 0.997902, train iou: 0.995877
+Test 15, loss: 0.861739, test acc: 0.999459, test avg acc: 0.999287, test iou: 0.998594
+Train 16, loss: 0.868532, train acc: 0.999462, train avg acc: 0.999266, train iou: 0.998539
+Test 16, loss: 0.860932, test acc: 0.999512, test avg acc: 0.999411, test iou: 0.998775
+Train 17, loss: 0.868448, train acc: 0.999448, train avg acc: 0.999219, train iou: 0.998450
+Test 17, loss: 0.860489, test acc: 0.999655, test avg acc: 0.999570, test iou: 0.999131
+Train 18, loss: 0.868081, train acc: 0.999522, train avg acc: 0.999322, train iou: 0.998651
+Test 18, loss: 0.860629, test acc: 0.999574, test avg acc: 0.999452, test iou: 0.998904
+Train 19, loss: 0.867497, train acc: 0.999646, train avg acc: 0.999516, train iou: 0.999038
+Test 19, loss: 0.860093, test acc: 0.999711, test avg acc: 0.999630, test iou: 0.999259
+Train 20, loss: 0.889880, train acc: 0.990299, train avg acc: 0.985756, train iou: 0.972885
+Test 20, loss: 0.908170, test acc: 0.978760, test avg acc: 0.960965, test iou: 0.929128
+Train 21, loss: 0.874393, train acc: 0.998331, train avg acc: 0.997756, train iou: 0.995654
+Test 21, loss: 0.863166, test acc: 0.998894, test avg acc: 0.998629, test iou: 0.997315
+Train 22, loss: 0.869856, train acc: 0.999180, train avg acc: 0.998939, train iou: 0.997910
+Test 22, loss: 0.863143, test acc: 0.999337, test avg acc: 0.999156, test iou: 0.998374
+Train 23, loss: 0.871532, train acc: 0.998599, train avg acc: 0.998031, train iou: 0.996213
+Test 23, loss: 0.861723, test acc: 0.999428, test avg acc: 0.999285, test iou: 0.998626
+Train 24, loss: 0.868401, train acc: 0.999458, train avg acc: 0.999289, train iou: 0.998597
+Test 24, loss: 0.862671, test acc: 0.999505, test avg acc: 0.999382, test iou: 0.998829
+Train 25, loss: 0.867871, train acc: 0.999565, train avg acc: 0.999424, train iou: 0.998858
+Test 25, loss: 0.861493, test acc: 0.999536, test avg acc: 0.999431, test iou: 0.998952
+Train 26, loss: 0.868301, train acc: 0.999468, train avg acc: 0.999270, train iou: 0.998559
+Test 26, loss: 0.861272, test acc: 0.999637, test avg acc: 0.999558, test iou: 0.999111
+Train 27, loss: 0.867428, train acc: 0.999662, train avg acc: 0.999548, train iou: 0.999100
+Test 27, loss: 0.861163, test acc: 0.999728, test avg acc: 0.999682, test iou: 0.999356
+Train 28, loss: 0.867240, train acc: 0.999703, train avg acc: 0.999599, train iou: 0.999201
+Test 28, loss: 0.860749, test acc: 0.999679, test avg acc: 0.999631, test iou: 0.999242
+Train 29, loss: 0.904518, train acc: 0.983065, train avg acc: 0.975343, train iou: 0.953849
+Test 29, loss: 0.870184, test acc: 0.998092, test avg acc: 0.997669, test iou: 0.995702
+Train 30, loss: 0.874826, train acc: 0.998127, train avg acc: 0.997394, train iou: 0.994918
+Test 30, loss: 0.864748, test acc: 0.999152, test avg acc: 0.998977, test iou: 0.997972
+Train 31, loss: 0.870440, train acc: 0.999136, train avg acc: 0.998848, train iou: 0.997749
+Test 31, loss: 0.865888, test acc: 0.999397, test avg acc: 0.999225, test iou: 0.998543
+Train 32, loss: 0.869057, train acc: 0.999405, train avg acc: 0.999212, train iou: 0.998456
+Test 32, loss: 0.860951, test acc: 0.999585, test avg acc: 0.999493, test iou: 0.999014
+Train 33, loss: 0.869388, train acc: 0.999260, train avg acc: 0.998971, train iou: 0.998003
+Test 33, loss: 0.863908, test acc: 0.999599, test avg acc: 0.999508, test iou: 0.999036
+Train 34, loss: 0.868057, train acc: 0.999589, train avg acc: 0.999449, train iou: 0.998929
+Test 34, loss: 0.861082, test acc: 0.999704, test avg acc: 0.999627, test iou: 0.999289
+Train 35, loss: 0.867636, train acc: 0.999670, train avg acc: 0.999557, train iou: 0.999135
+Test 35, loss: 0.860011, test acc: 0.999784, test avg acc: 0.999766, test iou: 0.999537
+Train 36, loss: 0.874468, train acc: 0.997383, train avg acc: 0.996027, train iou: 0.992233
+Test 36, loss: 0.862495, test acc: 0.999309, test avg acc: 0.999230, test iou: 0.998478
+Train 37, loss: 0.868506, train acc: 0.999474, train avg acc: 0.999297, train iou: 0.998623
+Test 37, loss: 0.860865, test acc: 0.999690, test avg acc: 0.999604, test iou: 0.999276
+Train 38, loss: 0.867729, train acc: 0.999642, train avg acc: 0.999505, train iou: 0.999035
+Test 38, loss: 0.860412, test acc: 0.999749, test avg acc: 0.999706, test iou: 0.999427
+Train 39, loss: 0.867267, train acc: 0.999721, train avg acc: 0.999621, train iou: 0.999260
+Test 39, loss: 0.861036, test acc: 0.999794, test avg acc: 0.999710, test iou: 0.999446
+Train 40, loss: 0.867057, train acc: 0.999757, train avg acc: 0.999669, train iou: 0.999351
+Test 40, loss: 0.861713, test acc: 0.999763, test avg acc: 0.999668, test iou: 0.999347
+Train 41, loss: 0.890328, train acc: 0.989717, train avg acc: 0.984867, train iou: 0.971169
+Test 41, loss: 0.897195, test acc: 0.992093, test avg acc: 0.989227, test iou: 0.979496
+Train 42, loss: 0.876908, train acc: 0.997651, train avg acc: 0.996563, train iou: 0.993281
+Test 42, loss: 0.864770, test acc: 0.999170, test avg acc: 0.999062, test iou: 0.998206
+Train 43, loss: 0.871033, train acc: 0.999117, train avg acc: 0.998810, train iou: 0.997653
+Test 43, loss: 0.861899, test acc: 0.999463, test avg acc: 0.999397, test iou: 0.998735
+Train 44, loss: 0.869164, train acc: 0.999449, train avg acc: 0.999279, train iou: 0.998572
+Test 44, loss: 0.860732, test acc: 0.999644, test avg acc: 0.999642, test iou: 0.999245
+Train 45, loss: 0.868262, train acc: 0.999598, train avg acc: 0.999484, train iou: 0.998972
+Test 45, loss: 0.860271, test acc: 0.999756, test avg acc: 0.999712, test iou: 0.999413
+Train 46, loss: 0.867728, train acc: 0.999669, train avg acc: 0.999571, train iou: 0.999144
+Test 46, loss: 0.860413, test acc: 0.999759, test avg acc: 0.999708, test iou: 0.999411
+Train 47, loss: 0.867840, train acc: 0.999639, train avg acc: 0.999530, train iou: 0.999065
+Test 47, loss: 0.860177, test acc: 0.999787, test avg acc: 0.999743, test iou: 0.999492
+Train 48, loss: 0.867499, train acc: 0.999683, train avg acc: 0.999579, train iou: 0.999163
+Test 48, loss: 0.860066, test acc: 0.999829, test avg acc: 0.999803, test iou: 0.999615
+Train 49, loss: 0.867052, train acc: 0.999770, train avg acc: 0.999701, train iou: 0.999403
+Test 49, loss: 0.859919, test acc: 0.999874, test avg acc: 0.999843, test iou: 0.999715
+Train 50, loss: 0.868946, train acc: 0.998882, train avg acc: 0.998197, train iou: 0.996430
+Test 50, loss: 1.450268, test acc: 0.764983, test avg acc: 0.648465, test iou: 0.531006
+Train 51, loss: 0.872557, train acc: 0.998296, train avg acc: 0.997327, train iou: 0.994727
+Test 51, loss: 0.860509, test acc: 0.999731, test avg acc: 0.999684, test iou: 0.999350
+Train 52, loss: 0.867559, train acc: 0.999691, train avg acc: 0.999590, train iou: 0.999175
+Test 52, loss: 0.859854, test acc: 0.999742, test avg acc: 0.999715, test iou: 0.999435
+Train 53, loss: 0.867088, train acc: 0.999757, train avg acc: 0.999678, train iou: 0.999352
+Test 53, loss: 0.860193, test acc: 0.999749, test avg acc: 0.999660, test iou: 0.999348
+Train 54, loss: 0.867491, train acc: 0.999543, train avg acc: 0.999339, train iou: 0.998692
+Test 54, loss: 1.248384, test acc: 0.844120, test avg acc: 0.743566, test iou: 0.644108
+Train 55, loss: 0.868128, train acc: 0.999516, train avg acc: 0.999275, train iou: 0.998577
+Test 55, loss: 0.859669, test acc: 0.999864, test avg acc: 0.999832, test iou: 0.999688
+Train 56, loss: 0.866726, train acc: 0.999808, train avg acc: 0.999746, train iou: 0.999496
+Test 56, loss: 0.859519, test acc: 0.999867, test avg acc: 0.999847, test iou: 0.999714
+Train 57, loss: 0.866555, train acc: 0.999830, train avg acc: 0.999773, train iou: 0.999548
+Test 57, loss: 0.859980, test acc: 0.999826, test avg acc: 0.999755, test iou: 0.999514
+Train 58, loss: 0.866471, train acc: 0.999844, train avg acc: 0.999792, train iou: 0.999584
+Test 58, loss: 0.859633, test acc: 0.999899, test avg acc: 0.999872, test iou: 0.999742
+Train 59, loss: 0.866754, train acc: 0.999776, train avg acc: 0.999690, train iou: 0.999389
+Test 59, loss: 0.859481, test acc: 0.999878, test avg acc: 0.999843, test iou: 0.999684
+Train 60, loss: 0.866502, train acc: 0.999825, train avg acc: 0.999763, train iou: 0.999529
+Test 60, loss: 0.859309, test acc: 0.999909, test avg acc: 0.999877, test iou: 0.999765
+Train 61, loss: 0.866264, train acc: 0.999868, train avg acc: 0.999822, train iou: 0.999646
+Test 61, loss: 0.859261, test acc: 0.999906, test avg acc: 0.999882, test iou: 0.999771
+Train 62, loss: 0.866216, train acc: 0.999874, train avg acc: 0.999829, train iou: 0.999660
+Test 62, loss: 0.859224, test acc: 0.999937, test avg acc: 0.999907, test iou: 0.999832
+Train 63, loss: 0.866164, train acc: 0.999877, train avg acc: 0.999833, train iou: 0.999668
+Test 63, loss: 0.859282, test acc: 0.999923, test avg acc: 0.999914, test iou: 0.999819
+Train 64, loss: 0.866117, train acc: 0.999880, train avg acc: 0.999836, train iou: 0.999675
+Test 64, loss: 0.859288, test acc: 0.999881, test avg acc: 0.999855, test iou: 0.999693
+Train 65, loss: 0.866858, train acc: 0.999653, train avg acc: 0.999495, train iou: 0.999004
+Test 65, loss: 0.859660, test acc: 0.999794, test avg acc: 0.999767, test iou: 0.999534
+Train 66, loss: 0.866290, train acc: 0.999842, train avg acc: 0.999786, train iou: 0.999579
+Test 66, loss: 0.859167, test acc: 0.999895, test avg acc: 0.999857, test iou: 0.999729
+Train 67, loss: 0.866100, train acc: 0.999874, train avg acc: 0.999828, train iou: 0.999659
+Test 67, loss: 0.859240, test acc: 0.999909, test avg acc: 0.999872, test iou: 0.999760
+Train 68, loss: 0.866033, train acc: 0.999887, train avg acc: 0.999844, train iou: 0.999691
+Test 68, loss: 0.859173, test acc: 0.999916, test avg acc: 0.999890, test iou: 0.999786
+Train 69, loss: 0.865976, train acc: 0.999895, train avg acc: 0.999857, train iou: 0.999715
+Test 69, loss: 0.859038, test acc: 0.999944, test avg acc: 0.999928, test iou: 0.999852
+Train 70, loss: 0.866024, train acc: 0.999879, train avg acc: 0.999833, train iou: 0.999666
+Test 70, loss: 0.859228, test acc: 0.999927, test avg acc: 0.999906, test iou: 0.999819
+Train 71, loss: 0.865920, train acc: 0.999903, train avg acc: 0.999868, train iou: 0.999737
+Test 71, loss: 0.859136, test acc: 0.999920, test avg acc: 0.999906, test iou: 0.999815
+Train 72, loss: 0.865888, train acc: 0.999903, train avg acc: 0.999868, train iou: 0.999736
+Test 72, loss: 0.859108, test acc: 0.999916, test avg acc: 0.999899, test iou: 0.999803
+Train 73, loss: 0.865856, train acc: 0.999904, train avg acc: 0.999870, train iou: 0.999740
+Test 73, loss: 0.859133, test acc: 0.999920, test avg acc: 0.999889, test iou: 0.999787
+Train 74, loss: 0.865860, train acc: 0.999906, train avg acc: 0.999871, train iou: 0.999743
+Test 74, loss: 0.859052, test acc: 0.999920, test avg acc: 0.999886, test iou: 0.999781
+Train 75, loss: 0.865810, train acc: 0.999911, train avg acc: 0.999879, train iou: 0.999759
+Test 75, loss: 0.859032, test acc: 0.999913, test avg acc: 0.999889, test iou: 0.999781
+Train 76, loss: 0.865784, train acc: 0.999913, train avg acc: 0.999882, train iou: 0.999764
+Test 76, loss: 0.859034, test acc: 0.999930, test avg acc: 0.999910, test iou: 0.999820
+Train 77, loss: 0.865773, train acc: 0.999914, train avg acc: 0.999886, train iou: 0.999771
+Test 77, loss: 0.859119, test acc: 0.999913, test avg acc: 0.999879, test iou: 0.999773
+Train 78, loss: 0.865760, train acc: 0.999914, train avg acc: 0.999885, train iou: 0.999771
+Test 78, loss: 0.859010, test acc: 0.999906, test avg acc: 0.999872, test iou: 0.999755
+Train 79, loss: 0.865743, train acc: 0.999918, train avg acc: 0.999889, train iou: 0.999779
+Test 79, loss: 0.859043, test acc: 0.999892, test avg acc: 0.999859, test iou: 0.999732
+Train 80, loss: 0.865725, train acc: 0.999919, train avg acc: 0.999891, train iou: 0.999782
+Test 80, loss: 0.859050, test acc: 0.999906, test avg acc: 0.999882, test iou: 0.999770
+Train 81, loss: 0.865720, train acc: 0.999919, train avg acc: 0.999890, train iou: 0.999780
+Test 81, loss: 0.859007, test acc: 0.999920, test avg acc: 0.999902, test iou: 0.999807
+Train 82, loss: 0.865698, train acc: 0.999923, train avg acc: 0.999896, train iou: 0.999792
+Test 82, loss: 0.859032, test acc: 0.999913, test avg acc: 0.999883, test iou: 0.999779
+Train 83, loss: 0.865698, train acc: 0.999922, train avg acc: 0.999895, train iou: 0.999791
+Test 83, loss: 0.859013, test acc: 0.999920, test avg acc: 0.999903, test iou: 0.999800
+Train 84, loss: 0.865684, train acc: 0.999923, train avg acc: 0.999897, train iou: 0.999795
+Test 84, loss: 0.858997, test acc: 0.999920, test avg acc: 0.999893, test iou: 0.999794
+Train 85, loss: 0.865677, train acc: 0.999923, train avg acc: 0.999897, train iou: 0.999793
+Test 85, loss: 0.858999, test acc: 0.999916, test avg acc: 0.999895, test iou: 0.999794
+Train 86, loss: 0.865668, train acc: 0.999926, train avg acc: 0.999902, train iou: 0.999804
+Test 86, loss: 0.859008, test acc: 0.999902, test avg acc: 0.999869, test iou: 0.999740
+Train 87, loss: 0.865658, train acc: 0.999926, train avg acc: 0.999901, train iou: 0.999803
+Test 87, loss: 0.858991, test acc: 0.999913, test avg acc: 0.999884, test iou: 0.999771
+Train 88, loss: 0.865653, train acc: 0.999926, train avg acc: 0.999901, train iou: 0.999803
+Test 88, loss: 0.858998, test acc: 0.999902, test avg acc: 0.999872, test iou: 0.999745
+Train 89, loss: 0.865644, train acc: 0.999928, train avg acc: 0.999904, train iou: 0.999808
+Test 89, loss: 0.858995, test acc: 0.999913, test avg acc: 0.999885, test iou: 0.999775
+Train 90, loss: 0.865643, train acc: 0.999928, train avg acc: 0.999904, train iou: 0.999808
+Test 90, loss: 0.858990, test acc: 0.999909, test avg acc: 0.999878, test iou: 0.999755
+Train 91, loss: 0.865637, train acc: 0.999928, train avg acc: 0.999903, train iou: 0.999806
+Test 91, loss: 0.858993, test acc: 0.999909, test avg acc: 0.999885, test iou: 0.999780
+Train 92, loss: 0.865635, train acc: 0.999929, train avg acc: 0.999905, train iou: 0.999810
+Test 92, loss: 0.858980, test acc: 0.999909, test avg acc: 0.999882, test iou: 0.999766
+Train 93, loss: 0.865630, train acc: 0.999929, train avg acc: 0.999905, train iou: 0.999809
+Test 93, loss: 0.859002, test acc: 0.999902, test avg acc: 0.999864, test iou: 0.999734
+Train 94, loss: 0.865626, train acc: 0.999930, train avg acc: 0.999907, train iou: 0.999813
+Test 94, loss: 0.858982, test acc: 0.999902, test avg acc: 0.999877, test iou: 0.999755
+Train 95, loss: 0.865627, train acc: 0.999930, train avg acc: 0.999907, train iou: 0.999813
+Test 95, loss: 0.858993, test acc: 0.999909, test avg acc: 0.999878, test iou: 0.999761
+Train 96, loss: 0.865620, train acc: 0.999930, train avg acc: 0.999907, train iou: 0.999814
+Test 96, loss: 0.858982, test acc: 0.999906, test avg acc: 0.999871, test iou: 0.999748
+Train 97, loss: 0.865620, train acc: 0.999931, train avg acc: 0.999909, train iou: 0.999817
+Test 97, loss: 0.858986, test acc: 0.999916, test avg acc: 0.999887, test iou: 0.999784
+Train 98, loss: 0.865622, train acc: 0.999931, train avg acc: 0.999908, train iou: 0.999816
+Test 98, loss: 0.858986, test acc: 0.999913, test avg acc: 0.999880, test iou: 0.999767
+Train 99, loss: 0.865616, train acc: 0.999933, train avg acc: 0.999911, train iou: 0.999821
+Test 99, loss: 0.858989, test acc: 0.999906, test avg acc: 0.999870, test iou: 0.999750
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/semseg/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='area_6_office_1', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='area_6_office_1', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_all/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='area_6_office_1', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='area_6_office_all', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_all/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='area_6_office_1', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_all/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='area_6_office_1', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='area_6_office_1', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='area_6_office_1', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='area_6_office_1', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Test :: test area: all, test acc: 0.999944, test avg acc: 0.999928, test iou: 0.999852
+Overall Test :: test acc: 0.999944, test avg acc: 0.999928, test iou: 0.999852
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Test :: test area: all, test acc: 0.999944, test avg acc: 0.999928, test iou: 0.999852
+Overall Test :: test acc: 0.999944, test avg acc: 0.999928, test iou: 0.999852
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_1', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_1/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
