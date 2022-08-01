@@ -370,3 +370,7 @@ Color map:
 <p float="left">
     <img src="image/semseg_colors.png" width="800"/>
 </p>
+
+
+### Running commands
+``CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=1 python main_semseg.py --exp_name=benchmark_6d_1 --test_area=all --eval=True --model_root=outputs/benchmark_6d_1/models/ --test_batch_size=1``
