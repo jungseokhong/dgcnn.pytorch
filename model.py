@@ -327,7 +327,7 @@ class DGCNN_semseg(nn.Module):
         self.bn7 = nn.BatchNorm1d(512)
         self.bn8 = nn.BatchNorm1d(256)
 
-        self.conv1 = nn.Sequential(nn.Conv2d(18, 64, kernel_size=1, bias=False),
+        self.conv1 = nn.Sequential(nn.Conv2d(12, 64, kernel_size=1, bias=False), ## change to 12 from 18
                                    self.bn1,
                                    nn.LeakyReLU(negative_slope=0.2))
         self.conv2 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=1, bias=False),
@@ -352,14 +352,17 @@ class DGCNN_semseg(nn.Module):
                                    self.bn8,
                                    nn.LeakyReLU(negative_slope=0.2))
         self.dp1 = nn.Dropout(p=args.dropout)
-        self.conv9 = nn.Conv1d(256, 13, kernel_size=1, bias=False)
+        self.conv9 = nn.Conv1d(256, 7, kernel_size=1, bias=False) ## change to 7 from 13
         
 
     def forward(self, x):
         batch_size = x.size(0)
         num_points = x.size(2)
-
-        x = get_graph_feature(x, k=self.k, dim9=True)   # (batch_size, 9, num_points) -> (batch_size, 9*2, num_points, k)
+        # print("forward 0 shape, ", x.size())
+        ## torch.Size([32, 6, 4096]) 
+        x = get_graph_feature(x, k=self.k, dim9=False) ##True to False   # (batch_size, 9, num_points) -> (batch_size, 9*2, num_points, k)
+        # print("after get graph, ", x.size())
+        ## dim9 false case: torch.Size([32, 12, 4096, 20])
         x = self.conv1(x)                       # (batch_size, 9*2, num_points, k) -> (batch_size, 64, num_points, k)
         x = self.conv2(x)                       # (batch_size, 64, num_points, k) -> (batch_size, 64, num_points, k)
         x1 = x.max(dim=-1, keepdim=False)[0]    # (batch_size, 64, num_points, k) -> (batch_size, 64, num_points)

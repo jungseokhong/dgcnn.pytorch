@@ -165,6 +165,38 @@ def load_data_semseg(partition, test_area):
     return all_data, all_seg
 
 
+def load_data_semseg_benchmark(partition):
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    DATA_DIR = os.path.join(BASE_DIR, 'data')
+    download_S3DIS()
+    prepare_test_data_semseg()
+    if partition == 'train':
+        data_dir = os.path.join(DATA_DIR, 'benchmark_seg_hdf5_data')
+    else:
+        data_dir = os.path.join(DATA_DIR, 'benchmark_seg_hdf5_data_test')
+    with open(os.path.join(data_dir, "all_files.txt")) as f:
+        all_files = [line.rstrip() for line in f]
+    data_batchlist, label_batchlist = [], []
+    for f in all_files:
+        file = h5py.File(os.path.join(DATA_DIR, f), 'r+')
+        data = file["data"][:]
+        label = file["label"][:]
+        data_batchlist.append(data)
+        label_batchlist.append(label)
+    data_batches = np.concatenate(data_batchlist, 0)
+    seg_batches = np.concatenate(label_batchlist, 0)
+
+
+    if partition == 'test':
+        all_data = data_batches[:70, ...] 
+        all_seg = seg_batches[:70, ...]
+    else:
+        all_data = data_batches
+        all_seg = seg_batches
+
+    return all_data, all_seg
+
+
 def load_color_partseg():
     colors = []
     labels = []
@@ -249,7 +281,47 @@ def load_color_semseg():
         row_index = row_index + int(color_size * 1.3)
         if (row_index >= img_size):
             break  
-    
+
+def load_color_benchmark_seg():
+    colors = []
+    labels = []
+    f = open("prepare_data/meta/benchmark_seg_colors.txt")
+    for line in json.load(f):
+        colors.append(line['color'])
+        labels.append(line['label'])
+    semseg_colors = np.array(colors)
+    semseg_colors = semseg_colors[:, [2, 1, 0]]
+    partseg_labels = np.array(labels)
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    img_size = 1500
+    img = np.zeros((500, img_size, 3), dtype="uint8")
+    cv2.rectangle(img, (0, 0), (img_size, 750), [255, 255, 255], thickness=-1)
+    color_size = 64
+    color_index = 0
+    label_index = 0
+    row_index = 16
+    for _ in range(0, img_size):
+        column_index = 32
+        for _ in range(0, img_size):
+            color = semseg_colors[color_index]
+            label = partseg_labels[label_index]
+            length = len(str(label))
+            cv2.rectangle(img, (column_index, row_index), (column_index + color_size, row_index + color_size),
+                          color=(int(color[0]), int(color[1]), int(color[2])), thickness=-1)
+            img = cv2.putText(img, label, (column_index + int(color_size * 1.15), row_index + int(color_size / 2)),
+                              font,
+                              0.7, (0, 0, 0), 2)
+            column_index = column_index + 200
+            color_index = color_index + 1
+            label_index = label_index + 1
+            if color_index >= 7:
+                cv2.imwrite("prepare_data/meta/benchmark_seg_colors.png", img, [cv2.IMWRITE_PNG_COMPRESSION, 0])
+                return np.array(colors)
+            elif (column_index >= 1280):
+                break
+        row_index = row_index + int(color_size * 1.3)
+        if (row_index >= img_size):
+            break  
 
 def translate_pointcloud(pointcloud):
     xyz1 = np.random.uniform(low=2./3., high=3./2., size=[3])
@@ -354,6 +426,28 @@ class S3DIS(Dataset):
         return self.data.shape[0]
 
 
+class BENCHMARK(Dataset):
+    def __init__(self, num_points=4096, partition='train', test_area='1'):
+        self.data, self.seg = load_data_semseg_benchmark(partition)
+        self.num_points = num_points
+        self.partition = partition    
+        self.benchmark_seg_colors = load_color_benchmark_seg()
+
+    def __getitem__(self, item):
+        pointcloud = self.data[item][:self.num_points]
+        seg = self.seg[item][:self.num_points]
+        if self.partition == 'train':
+            indices = list(range(pointcloud.shape[0]))
+            np.random.shuffle(indices)
+            pointcloud = pointcloud[indices]
+            seg = seg[indices]
+        seg = torch.LongTensor(seg)
+        return pointcloud, seg
+
+    def __len__(self):
+        return self.data.shape[0]
+
+
 if __name__ == '__main__':
     train = ModelNet40(1024)
     test = ModelNet40(1024, 'test')
@@ -370,6 +464,12 @@ if __name__ == '__main__':
 
     train = S3DIS(4096)
     test = S3DIS(4096, 'test')
+    data, seg = train[0]
+    print(data.shape)
+    print(seg.shape)
+
+    train = BENCHMARK(4096)
+    test = BENCHMARK(4096, 'test')
     data, seg = train[0]
     print(data.shape)
     print(seg.shape)
