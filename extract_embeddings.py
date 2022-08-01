@@ -9,7 +9,7 @@ import numpy as np
 def extractor(data):
     """
     Input
-    - numpy array data (1, N,6) where default N is 4096 but it can probably be any number
+    - numpy array data (1, N,6) where default N (number of points) is 4096 but it can probably be any number
     Output
     - seg_pred_np: embedding shape of (1, 4096, 7)
     - pred_np: prediction from embedding (1, 4096)
