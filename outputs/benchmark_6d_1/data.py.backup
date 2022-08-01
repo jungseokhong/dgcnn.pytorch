@@ -168,8 +168,8 @@ def load_data_semseg(partition, test_area):
 def load_data_semseg_benchmark(partition):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     DATA_DIR = os.path.join(BASE_DIR, 'data')
-    download_S3DIS()
-    prepare_test_data_semseg()
+    # download_S3DIS()
+    # prepare_test_data_semseg()
     if partition == 'train':
         data_dir = os.path.join(DATA_DIR, 'benchmark_seg_hdf5_data')
     else:
