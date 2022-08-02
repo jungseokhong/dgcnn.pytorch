@@ -427,7 +427,7 @@ class S3DIS(Dataset):
 
 
 class BENCHMARK(Dataset):
-    def __init__(self, num_points=4096, partition='train', test_area='1'):
+    def __init__(self, num_points=4096, partition='train'):
         self.data, self.seg = load_data_semseg_benchmark(partition)
         self.num_points = num_points
         self.partition = partition    

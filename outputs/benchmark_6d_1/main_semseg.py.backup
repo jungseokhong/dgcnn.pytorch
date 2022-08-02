@@ -173,10 +173,12 @@ def visualization(visu, visu_format, data, seg, pred, semseg_colors):
         # print("data and its shapes, ", data[i,:].shape, pred[:,i].shape, seg[:,i].shape)
         RGB.append(semseg_colors[int(pred[:,i])])
         RGB_gt.append(semseg_colors[int(seg[:,i])])
-        data = data[:,[1,2,0]]
+        # print("print data shape before ", data.shape, data[i].shape)
+        # data = data[:,[1,2,0]] ##################
+        # print("print data shape after ", data.shape)
         # print("shapes, ", data[i].shape, np.array(RGB).shape)
-        xyzRGB = np.concatenate((data[i].reshape(1,3), np.array(RGB)), axis=1)
-        xyzRGB_gt = np.concatenate((data[i].reshape(1,3), np.array(RGB_gt)), axis=1)
+        xyzRGB = np.concatenate((data[i][:3].reshape(1,3), np.array(RGB)), axis=1)
+        xyzRGB_gt = np.concatenate((data[i][:3].reshape(1,3), np.array(RGB_gt)), axis=1)
 
         # f = open('outputs/'+args.exp_name+'/'+'visualization'+'/'+'line_'+str(i)+'.txt', "a")
         # f_gt = open('outputs/'+args.exp_name+'/'+'visualization'+'/'+'line_'+str(i)+'_gt.txt', "a")
@@ -201,7 +203,7 @@ def visualization(visu, visu_format, data, seg, pred, semseg_colors):
         vertex = PlyElement.describe(np.array(xyzRGB_gt, dtype=[('x', 'f4'), ('y', 'f4'), ('z', 'f4'), ('red', 'u1'), ('green', 'u1'), ('blue', 'u1')]), 'vertex')
         PlyData([vertex]).write(filepath_gt)
         print('PLY visualization file saved in', filepath_gt)
-        # os.system('rm -rf '+'outputs/'+args.exp_name+'/visualization'+'/*.txt')
+        os.system('rm -rf '+'outputs/'+args.exp_name+'/visualization'+'/*.txt')
         counter += 1
 
     else:
@@ -223,9 +225,9 @@ def train(args, io):
     #                           num_workers=8, batch_size=args.batch_size, shuffle=True, drop_last=True)
     # test_loader = DataLoader(S3DIS(partition='test', num_points=args.num_points, test_area=args.test_area), 
     #                         num_workers=8, batch_size=args.test_batch_size, shuffle=True, drop_last=False)
-    train_loader = DataLoader(BENCHMARK(partition='train', num_points=args.num_points, test_area=args.test_area), 
+    train_loader = DataLoader(BENCHMARK(partition='train', num_points=args.num_points), 
                               num_workers=8, batch_size=args.batch_size, shuffle=True, drop_last=True)
-    test_loader = DataLoader(BENCHMARK(partition='test', num_points=args.num_points, test_area=args.test_area), 
+    test_loader = DataLoader(BENCHMARK(partition='test', num_points=args.num_points), 
                             num_workers=8, batch_size=args.test_batch_size, shuffle=True, drop_last=False)
 
     device = torch.device("cuda" if args.cuda else "cpu")
@@ -370,7 +372,7 @@ def test(args, io):
     if (args.test_area == 'all') or (test_area == args.test_area):
         # test_loader = DataLoader(S3DIS(partition='test', num_points=args.num_points, test_area=test_area),
         #                          batch_size=args.test_batch_size, shuffle=False, drop_last=False)
-        test_loader = DataLoader(BENCHMARK(partition='test', num_points=args.num_points, test_area=test_area),
+        test_loader = DataLoader(BENCHMARK(partition='test', num_points=args.num_points),
                                     batch_size=args.test_batch_size, shuffle=False, drop_last=False)
 
         device = torch.device("cuda" if args.cuda else "cpu")
@@ -585,6 +587,7 @@ if __name__ == "__main__":
     io.cprint(str(args))
 
     args.cuda = not args.no_cuda and torch.cuda.is_available()
+    args.test_area = 'all'
     torch.manual_seed(args.seed)
     if args.cuda:
         io.cprint(

@@ -47,6 +47,6 @@ def extractor(data):
     return seg_pred_np, pred_np
 
 if __name__ == "__main__":
-    N = 4096
+    N = 2000
     data = np.random.randn(1, N ,6).astype(float)
     extractor(data)
