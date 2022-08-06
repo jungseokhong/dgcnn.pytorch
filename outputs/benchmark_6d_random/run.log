@@ -202,3 +202,39 @@ Train 98, loss: 0.865352, train acc: 0.999945, train avg acc: 0.999917, train io
 Test 98, loss: 0.859103, test acc: 0.999847, test avg acc: 0.999768, test iou: 0.999537
 Train 99, loss: 0.865352, train acc: 0.999945, train avg acc: 0.999916, train iou: 0.999851
 Test 99, loss: 0.859111, test acc: 0.999840, test avg acc: 0.999758, test iou: 0.999518
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Test :: test area: all, test acc: 0.999847, test avg acc: 0.999768, test iou: 0.999537
+Overall Test :: test acc: 0.999847, test avg acc: 0.999768, test iou: 0.999537
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='benchmark_6d_random', k=20, lr=0.001, model='dgcnn', model_root='outputs/benchmark_6d_random/models/', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area='all', test_batch_size=1, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Test :: test area: all, test acc: 0.999962, test avg acc: 0.999943, test iou: 0.999899
+Overall Test :: test acc: 0.999962, test avg acc: 0.999943, test iou: 0.999899

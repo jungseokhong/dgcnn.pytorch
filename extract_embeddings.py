@@ -65,6 +65,12 @@ def calculate_sem_IoU(pred_np, seg_np, visual=False):
             if U_all[sem] == 0:
                 I_all[sem] = 1
                 U_all[sem] = 1
+
+    # print(f"U all {U_all}, I all {I_all}")
+    zeros_idx = np.where(U_all == 0)[0]
+    U_all = np.delete(U_all, zeros_idx)
+    I_all = np.delete(I_all, zeros_idx)
+    # print(f"after U all {U_all}, I all {I_all}")
     return I_all / U_all 
 
 
@@ -73,9 +79,9 @@ def visualization(data, seg, pred):
     data = data[0] # shape (N,6)
     semseg_colors = load_color_benchmark_seg()
     
-    print("color")
-    print(semseg_colors[pred][0])
-    print(semseg_colors[pred].shape)
+    # print("color")
+    # print(semseg_colors[pred][0])
+    # print(semseg_colors[pred].shape)
     
     RGB = semseg_colors[pred][0]
     RGB_gt = semseg_colors[seg][0]
@@ -114,7 +120,9 @@ def extractor(data):
     parser = argparse.ArgumentParser(description='Pointcloud embedding extractor')
     args = parser.parse_args()
     ## model weights, can be hardcoded.
-    args.model_root = 'outputs/benchmark_6d_1/models/'
+    # args.model_root = 'outputs/benchmark_6d_1/models/'
+    args.model_root = 'outputs/benchmark_6d_random/models/'
+
 
     ## Model related paramters
     args.emb_dims = 1024
@@ -138,7 +146,8 @@ def extractor(data):
     pred = seg_pred.max(dim=2)[1] 
     seg_pred_np = seg_pred.detach().cpu().numpy()
     pred_np = pred.detach().cpu().numpy()
-    print("seg_pred_shape, ",seg_pred_np.shape, pred_np.shape, seg_pred_np, pred_np)
+    print(f"output from network {seg_pred_np}")
+    # print("seg_pred_shape, ",seg_pred_np.shape, pred_np.shape) #, seg_pred_np, pred_np)
     return seg_pred_np, pred_np
 
 if __name__ == "__main__":

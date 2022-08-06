@@ -374,3 +374,5 @@ Color map:
 
 ### Running commands
 ``CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=1 python main_semseg.py --exp_name=benchmark_6d_1 --test_area=all --eval=True --model_root=outputs/benchmark_6d_1/models/ --test_batch_size=1``
+
+``CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=0 python main_semseg.py --exp_name=benchmark_6d_random --test_area=all --eval=True --model_root=outputs/benchmark_6d_random/models/ --visu_format=ply --test_batch_size=1``

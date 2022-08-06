@@ -62,105 +62,23 @@ def calculate_sem_IoU(pred_np, seg_np, visual=False):
                 U_all[sem] = 1
     return I_all / U_all 
 
-
-# def visualization(visu, visu_format, test_choice, data, seg, pred, visual_file_index, semseg_colors):
-#     global room_seg, room_pred
-#     global visual_warning
-#     visu = visu.split('_')
-#     for i in range(0, data.shape[0]):
-#         RGB = []
-#         RGB_gt = [] 
-#         skip = False
-#         with open("data/indoor3d_sem_seg_hdf5_data_test/room_filelist.txt") as f:
-#             files = f.readlines()
-#             test_area = files[visual_file_index][5]
-#             roomname = files[visual_file_index][7:-1]
-#             if visual_file_index + 1 < len(files):
-#                 roomname_next = files[visual_file_index+1][7:-1]
-#             else:
-#                 roomname_next = ''
-#         if visu[0] != 'all':
-#             if len(visu) == 2:
-#                 if visu[0] != 'area' or visu[1] != test_area:
-#                     skip = True 
-#                 else:
-#                     visual_warning = False
-#             elif len(visu) == 4:
-#                 if visu[0] != 'area' or visu[1] != test_area or visu[2] != roomname.split('_')[0] or visu[3] != roomname.split('_')[1]:
-#                     skip = True
-#                 else:
-#                     visual_warning = False  
-#             else:
-#                 skip = True
-#         elif test_choice !='all':
-#             skip = True
-#         else:
-#             visual_warning = False
-#         if skip:
-#             visual_file_index = visual_file_index + 1
-#         else:
-#             if not os.path.exists('outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname):
-#                 os.makedirs('outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname)
-            
-#             data = np.loadtxt('data/indoor3d_sem_seg_hdf5_data_test/raw_data3d/Area_'+test_area+'/'+roomname+'('+str(visual_file_index)+').txt')
-#             visual_file_index = visual_file_index + 1
-#             for j in range(0, data.shape[0]):
-#                 RGB.append(semseg_colors[int(pred[i][j])])
-#                 RGB_gt.append(semseg_colors[int(seg[i][j])])
-#             data = data[:,[1,2,0]]
-#             xyzRGB = np.concatenate((data, np.array(RGB)), axis=1)
-#             xyzRGB_gt = np.concatenate((data, np.array(RGB_gt)), axis=1)
-#             room_seg.append(seg[i].cpu().numpy())
-#             room_pred.append(pred[i].cpu().numpy()) 
-#             f = open('outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname+'/'+roomname+'.txt', "a")
-#             f_gt = open('outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname+'/'+roomname+'_gt.txt', "a")
-#             np.savetxt(f, xyzRGB, fmt='%s', delimiter=' ') 
-#             np.savetxt(f_gt, xyzRGB_gt, fmt='%s', delimiter=' ') 
-            
-#             if roomname != roomname_next:
-#                 mIoU = np.mean(calculate_sem_IoU(np.array(room_pred), np.array(room_seg), visual=True))
-#                 mIoU = str(round(mIoU, 4))
-#                 room_pred = []
-#                 room_seg = []
-#                 if visu_format == 'ply':
-#                     filepath = 'outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname+'/'+roomname+'_pred_'+mIoU+'.ply'
-#                     filepath_gt = 'outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname+'/'+roomname+'_gt.ply'
-#                     xyzRGB = np.loadtxt('outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname+'/'+roomname+'.txt')
-#                     xyzRGB_gt = np.loadtxt('outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname+'/'+roomname+'_gt.txt')
-#                     xyzRGB = [(xyzRGB[i, 0], xyzRGB[i, 1], xyzRGB[i, 2], xyzRGB[i, 3], xyzRGB[i, 4], xyzRGB[i, 5]) for i in range(xyzRGB.shape[0])]
-#                     xyzRGB_gt = [(xyzRGB_gt[i, 0], xyzRGB_gt[i, 1], xyzRGB_gt[i, 2], xyzRGB_gt[i, 3], xyzRGB_gt[i, 4], xyzRGB_gt[i, 5]) for i in range(xyzRGB_gt.shape[0])]
-#                     vertex = PlyElement.describe(np.array(xyzRGB, dtype=[('x', 'f4'), ('y', 'f4'), ('z', 'f4'), ('red', 'u1'), ('green', 'u1'), ('blue', 'u1')]), 'vertex')
-#                     PlyData([vertex]).write(filepath)
-#                     print('PLY visualization file saved in', filepath)
-#                     vertex = PlyElement.describe(np.array(xyzRGB_gt, dtype=[('x', 'f4'), ('y', 'f4'), ('z', 'f4'), ('red', 'u1'), ('green', 'u1'), ('blue', 'u1')]), 'vertex')
-#                     PlyData([vertex]).write(filepath_gt)
-#                     print('PLY visualization file saved in', filepath_gt)
-#                     os.system('rm -rf '+'outputs/'+args.exp_name+'/visualization/area_'+test_area+'/'+roomname+'/*.txt')
-#                 else:
-#                     filename = 'outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname+'/'+roomname+'.txt'
-#                     filename_gt = 'outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname+'/'+roomname+'_gt.txt'
-#                     filename_mIoU = 'outputs/'+args.exp_name+'/'+'visualization'+'/'+'area_'+test_area+'/'+roomname+'/'+roomname+'_pred_'+mIoU+'.txt'
-#                     os.rename(filename, filename_mIoU)
-#                     print('TXT visualization file saved in', filename_mIoU)
-#                     print('TXT visualization file saved in', filename_gt)
-#             elif visu_format != 'ply' and visu_format != 'txt':
-#                 print('ERROR!! Unknown visualization format: %s, please use txt or ply.' % \
-#                 (visu_format))
-#                 exit()
-
-
 def visualization(visu, visu_format, data, seg, pred, semseg_colors):
     global room_seg, room_pred
     global visual_warning
     global counter
     visu = visu.split('_')
+    # data (16, 6, 4096)
     data = torch.squeeze(data).T
+    # data (4096, 6, 16)
     # seg = torch.squeeze(seg)
     # pred = torch.squeeze(pred)
 
     f = open('outputs/'+args.exp_name+'/'+'visualization'+'/'+'line_'+str(counter)+'.txt', "a")
     f_gt = open('outputs/'+args.exp_name+'/'+'visualization'+'/'+'line_'+str(counter)+'_gt.txt', "a")
 
+    # data 4096, 6, 16
+    # pred: 16, 4096
+    # seg: 16, 4096
 
     for i in range(0, data.shape[0]):
         RGB = []
@@ -170,7 +88,8 @@ def visualization(visu, visu_format, data, seg, pred, semseg_colors):
             os.makedirs('outputs/'+args.exp_name+'/'+'visualization')
         
         data = data.cpu()
-        # print("data and its shapes, ", data[i,:].shape, pred[:,i].shape, seg[:,i].shape)
+        print(f"data shape: {data.shape}, pred shape: {pred.shape}, seg shape: {seg.shape}, pred i shpae, {pred[:, i].shape}")
+        print(f"data i, {data[i][:3].shape}")
         RGB.append(semseg_colors[int(pred[:,i])])
         RGB_gt.append(semseg_colors[int(seg[:,i])])
         # print("print data shape before ", data.shape, data[i].shape)
@@ -395,13 +314,14 @@ def test(args, io):
         test_pred_seg = []
         for data, seg in test_loader:
             data, seg = data.to(device), seg.to(device)
-            data = data[:,:,:6] ## data changed
-            data = data.permute(0, 2, 1)
+            data = data[:,:,:6] ## data changed (16, 4096, 6)
+            data = data.permute(0, 2, 1) # (16, 6, 4096)
             batch_size = data.size()[0]
-            seg_pred = model(data)
-            seg_pred = seg_pred.permute(0, 2, 1).contiguous()
-            pred = seg_pred.max(dim=2)[1] 
-            seg_np = seg.cpu().numpy()
+            seg_pred = model(data) # (16, 7, 4096)
+            seg_pred = seg_pred.permute(0, 2, 1).contiguous() # (16, 4096, 7)
+            pred = seg_pred.max(dim=2)[1] # (16, 4096) # return index has maximum value.
+            seg_np = seg.cpu().numpy() # (16, 4096)
+
             pred_np = pred.detach().cpu().numpy()
             test_true_cls.append(seg_np.reshape(-1))
             test_pred_cls.append(pred_np.reshape(-1))
@@ -441,95 +361,6 @@ def test(args, io):
                                                                                          avg_per_class_acc,
                                                                                          np.mean(all_ious))
         io.cprint(outstr)
-
-
-# def test(args, io):
-#     all_true_cls = []
-#     all_pred_cls = []
-#     all_true_seg = []
-#     all_pred_seg = []
-#     for test_area in range(1,7):
-#         visual_file_index = 0
-#         test_area = str(test_area)
-#         if os.path.exists("data/indoor3d_sem_seg_hdf5_data_test/room_filelist.txt"):
-#             with open("data/indoor3d_sem_seg_hdf5_data_test/room_filelist.txt") as f:
-#                 for line in f:
-#                     if (line[5]) == test_area:
-#                         break
-#                     visual_file_index = visual_file_index + 1
-#         if (args.test_area == 'all') or (test_area == args.test_area):
-#             # test_loader = DataLoader(S3DIS(partition='test', num_points=args.num_points, test_area=test_area),
-#             #                          batch_size=args.test_batch_size, shuffle=False, drop_last=False)
-#             test_loader = DataLoader(BENCHMARK(partition='test', num_points=args.num_points, test_area=test_area),
-#                                      batch_size=args.test_batch_size, shuffle=False, drop_last=False)
-
-#             device = torch.device("cuda" if args.cuda else "cpu")
-                        
-#             #Try to load models
-#             semseg_colors = test_loader.dataset.semseg_colors
-#             if args.model == 'dgcnn':
-#                 model = DGCNN_semseg(args).to(device)
-#             else:
-#                 raise Exception("Not implemented")
-                
-#             model = nn.DataParallel(model)
-#             model.load_state_dict(torch.load(os.path.join(args.model_root, 'model_%s.t7' % test_area)))
-#             model = model.eval()
-#             test_acc = 0.0
-#             count = 0.0
-#             test_true_cls = []
-#             test_pred_cls = []
-#             test_true_seg = []
-#             test_pred_seg = []
-#             for data, seg in test_loader:
-#                 data, seg = data.to(device), seg.to(device)
-#                 data = data[:,:,:6] ## data changed
-#                 data = data.permute(0, 2, 1)
-#                 batch_size = data.size()[0]
-#                 seg_pred = model(data)
-#                 seg_pred = seg_pred.permute(0, 2, 1).contiguous()
-#                 pred = seg_pred.max(dim=2)[1] 
-#                 seg_np = seg.cpu().numpy()
-#                 pred_np = pred.detach().cpu().numpy()
-#                 test_true_cls.append(seg_np.reshape(-1))
-#                 test_pred_cls.append(pred_np.reshape(-1))
-#                 test_true_seg.append(seg_np)
-#                 test_pred_seg.append(pred_np)
-#                 # visiualization
-#                 print("test data shape, ", data.shape, seg.shape, pred.shape)
-#                 visualization(args.visu, args.visu_format, args.test_area, data, seg, pred, visual_file_index, semseg_colors) 
-#                 visual_file_index = visual_file_index + data.shape[0]
-#             if visual_warning and args.visu != '':
-#                 print('Visualization Failed: You can only choose a room to visualize within the scope of the test area')
-#             test_true_cls = np.concatenate(test_true_cls)
-#             test_pred_cls = np.concatenate(test_pred_cls)
-#             test_acc = metrics.accuracy_score(test_true_cls, test_pred_cls)
-#             avg_per_class_acc = metrics.balanced_accuracy_score(test_true_cls, test_pred_cls)
-#             test_true_seg = np.concatenate(test_true_seg, axis=0)
-#             test_pred_seg = np.concatenate(test_pred_seg, axis=0)
-#             test_ious = calculate_sem_IoU(test_pred_seg, test_true_seg)
-#             outstr = 'Test :: test area: %s, test acc: %.6f, test avg acc: %.6f, test iou: %.6f' % (test_area,
-#                                                                                                     test_acc,
-#                                                                                                     avg_per_class_acc,
-#                                                                                                     np.mean(test_ious))
-#             io.cprint(outstr)
-#             all_true_cls.append(test_true_cls)
-#             all_pred_cls.append(test_pred_cls)
-#             all_true_seg.append(test_true_seg)
-#             all_pred_seg.append(test_pred_seg)
-
-#     if args.test_area == 'all':
-#         all_true_cls = np.concatenate(all_true_cls)
-#         all_pred_cls = np.concatenate(all_pred_cls)
-#         all_acc = metrics.accuracy_score(all_true_cls, all_pred_cls)
-#         avg_per_class_acc = metrics.balanced_accuracy_score(all_true_cls, all_pred_cls)
-#         all_true_seg = np.concatenate(all_true_seg, axis=0)
-#         all_pred_seg = np.concatenate(all_pred_seg, axis=0)
-#         all_ious = calculate_sem_IoU(all_pred_seg, all_true_seg)
-#         outstr = 'Overall Test :: test acc: %.6f, test avg acc: %.6f, test iou: %.6f' % (all_acc,
-#                                                                                          avg_per_class_acc,
-#                                                                                          np.mean(all_ious))
-#         io.cprint(outstr)
 
 
 if __name__ == "__main__":

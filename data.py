@@ -188,8 +188,8 @@ def load_data_semseg_benchmark(partition):
 
 
     if partition == 'test':
-        all_data = data_batches[:70, ...] 
-        all_seg = seg_batches[:70, ...]
+        all_data = data_batches[201:271, ...] 
+        all_seg = seg_batches[201:271, ...]
     else:
         all_data = data_batches
         all_seg = seg_batches
