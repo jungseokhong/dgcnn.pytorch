@@ -2,6 +2,10 @@ from plyfile import PlyData, PlyElement
 import h5py
 import numpy as np
 
+"""
+This code takes h5 file and generate ply file from it.
+"""
+
 f = h5py.File('data_000.h5', 'r')
 print(f.keys())
 xyzRGB = f['data'][0]
