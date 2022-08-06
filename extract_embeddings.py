@@ -146,6 +146,8 @@ def extractor(data):
     pred = seg_pred.max(dim=2)[1] 
     seg_pred_np = seg_pred.detach().cpu().numpy()
     pred_np = pred.detach().cpu().numpy()
+    f = h5py.File('test_2_embeddings.h5', 'w')
+    f.create_dataset('embeddings', data = seg_pred_np)
     print(f"output from network {seg_pred_np}")
     # print("seg_pred_shape, ",seg_pred_np.shape, pred_np.shape) #, seg_pred_np, pred_np)
     return seg_pred_np, pred_np

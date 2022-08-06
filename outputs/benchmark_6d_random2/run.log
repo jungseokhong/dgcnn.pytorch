@@ -70,3 +70,5 @@ Train 33, loss: 0.868484, train acc: 0.999121, train avg acc: 0.998689, train io
 Test 33, loss: 0.862671, test acc: 0.998800, test avg acc: 0.998261, test iou: 0.996536
 Train 34, loss: 0.867783, train acc: 0.999305, train avg acc: 0.998938, train iou: 0.997900
 Test 34, loss: 0.861074, test acc: 0.999170, test avg acc: 0.998729, test iou: 0.997457
+Train 35, loss: 0.869511, train acc: 0.998433, train avg acc: 0.997763, train iou: 0.995626
+Test 35, loss: 0.861214, test acc: 0.998982, test avg acc: 0.998551, test iou: 0.997127
