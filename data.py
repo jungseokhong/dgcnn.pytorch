@@ -171,9 +171,9 @@ def load_data_semseg_benchmark(partition):
     # download_S3DIS()
     # prepare_test_data_semseg()
     if partition == 'train':
-        data_dir = os.path.join(DATA_DIR, 'benchmark_random_seg_hdf5_data')
+        data_dir = os.path.join(DATA_DIR, 'benchmark_random2_seg_hdf5_data')
     else:
-        data_dir = os.path.join(DATA_DIR, 'benchmark_random_seg_hdf5_data_test')
+        data_dir = os.path.join(DATA_DIR, 'benchmark_random2_seg_hdf5_data_test')
     with open(os.path.join(data_dir, "all_files.txt")) as f:
         all_files = [line.rstrip() for line in f]
     data_batchlist, label_batchlist = [], []
