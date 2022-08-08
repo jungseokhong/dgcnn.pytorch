@@ -121,7 +121,7 @@ def extractor(data):
     args = parser.parse_args()
     ## model weights, can be hardcoded.
     # args.model_root = 'outputs/benchmark_6d_1/models/'
-    args.model_root = 'outputs/benchmark_6d_random/models/'
+    args.model_root = 'outputs/benchmark_6d_random2/models/'
 
 
     ## Model related paramters
@@ -143,12 +143,36 @@ def extractor(data):
     data = data.permute(0, 2, 1)
     seg_pred = model(data)
     seg_pred = seg_pred.permute(0, 2, 1).contiguous()
+    
+    ### different types of embeddings
+    m = nn.Sigmoid()
+    sigmoid_embeddings = m(seg_pred)
+    # print(f"seg_pred {seg_pred[:3]}, sigmoid_embeddings {sigmoid_embeddings[:3]}")
+    m = nn.ReLU()
+    relu_embeddings = m(seg_pred)
+    m = nn.Tanh()
+    tanh_embeddings = m(seg_pred)
+    m = nn.Softmax(dim=2)
+    softmax_embeddings = m(seg_pred)
+
+
     pred = seg_pred.max(dim=2)[1] 
     seg_pred_np = seg_pred.detach().cpu().numpy()
     pred_np = pred.detach().cpu().numpy()
-    f = h5py.File('test_2_embeddings.h5', 'w')
+
+    sigmoid_embeddings = sigmoid_embeddings.detach().cpu().numpy()
+    relu_embeddings = relu_embeddings.detach().cpu().numpy()
+    tanh_embeddings = tanh_embeddings.detach().cpu().numpy()
+    softmax_embeddings = softmax_embeddings.detach().cpu().numpy()
+    
+    f = h5py.File('test_2_embeddings_rand2.h5', 'w')
     f.create_dataset('embeddings', data = seg_pred_np)
-    print(f"output from network {seg_pred_np}")
+    f.create_dataset('sigmoid_embeddings', data = sigmoid_embeddings)
+    f.create_dataset('relu_embeddings', data = relu_embeddings)
+    f.create_dataset('tanh_embeddings', data = tanh_embeddings)
+    f.create_dataset('softmax_embeddings', data = softmax_embeddings)
+
+    # print(f"output from network {seg_pred_np}")
     # print("seg_pred_shape, ",seg_pred_np.shape, pred_np.shape) #, seg_pred_np, pred_np)
     return seg_pred_np, pred_np
 
