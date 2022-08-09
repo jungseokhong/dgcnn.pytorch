@@ -23,8 +23,11 @@ from torch.utils.data import DataLoader
 from util import cal_loss, IOStream
 import sklearn.metrics as metrics
 from plyfile import PlyData, PlyElement
-from loss import DiscriminativeLoss
- 
+from pytorch_metric_learning import losses
+from pytorch_metric_learning.distances import CosineSimilarity
+from pytorch_metric_learning.reducers import ThresholdReducer
+from pytorch_metric_learning.regularizers import LpRegularizer
+
 
 global room_seg
 room_seg = []
@@ -147,7 +150,7 @@ def train(args, io):
     # test_loader = DataLoader(S3DIS(partition='test', num_points=args.num_points, test_area=args.test_area), 
     #                         num_workers=8, batch_size=args.test_batch_size, shuffle=True, drop_last=False)
     train_loader = DataLoader(BENCHMARK(partition='train', num_points=args.num_points), 
-                              num_workers=8, batch_size=args.batch_size, shuffle=True, drop_last=True)
+                              num_workers=128, batch_size=args.batch_size, shuffle=True, drop_last=True)
     test_loader = DataLoader(BENCHMARK(partition='test', num_points=args.num_points), 
                             num_workers=8, batch_size=args.test_batch_size, shuffle=True, drop_last=False)
 
@@ -163,12 +166,6 @@ def train(args, io):
     model = nn.DataParallel(model)
     print("Let's use", torch.cuda.device_count(), "GPUs!")
 
-
-    criterion_disc = DiscriminativeLoss(delta_var=0.5,
-                                        delta_dist=1.5,
-                                        norm=2,
-                                        usegpu=True).cuda()
-
     if args.use_sgd:
         print("Use SGD")
         opt = optim.SGD(model.parameters(), lr=args.lr*100, momentum=args.momentum, weight_decay=1e-4)
@@ -182,6 +179,9 @@ def train(args, io):
         scheduler = StepLR(opt, 20, 0.5, args.epochs)
 
     criterion = cal_loss
+    loss_func = losses.TripletMarginLoss(distance = CosineSimilarity(), 
+                        reducer = ThresholdReducer(high=0.3), 
+                        embedding_regularizer = LpRegularizer())
 
     best_test_iou = 0
     for epoch in range(args.epochs):
@@ -197,6 +197,7 @@ def train(args, io):
         train_pred_seg = []
         train_label_seg = []
         disc_losses = []
+        cnt = 0
         for data, seg in train_loader:
             data, seg = data.to(device), seg.to(device)
             # print("data shape0, ", data.size())
@@ -212,14 +213,12 @@ def train(args, io):
             ## seg_pred, view, seg view:  torch.Size([32, 4096, 13]) !! torch.Size([131072, 13]) !! torch.Size([32, 4096]) !! torch.Size([131072, 1])
             ## print(f"seg_pred {seg_pred.size()} seg_pred view {seg_pred.view(-1,7).size()} seg {seg.size()} seg.view {seg.view(-1,1).size()} seg view squeeze {seg.view(-1,1).squeeze().size()}")
             ## seg_pred torch.Size([32, 4096, 7]) seg_pred view torch.Size([131072, 7]) seg torch.Size([32, 4096]) seg.view torch.Size([131072, 1]) seg view squeeze torch.Size([131072])
-            
-            # Discriminative Loss
-            n_sticks = 7
-            disc_loss = criterion_disc(seg_pred.view(-1,7),
-                                    seg.view(-1,1).squeeze(),
-                                    [n_sticks] * batch_size)
-            
-            loss = criterion(seg_pred.view(-1, 7), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
+            # print(f"seg {seg_pred.view(7,-1).size()}, label {seg.view(-1,1).squeeze().size()}")
+            loss_tri = loss_func(seg_pred.view(-1, 7), seg.view(-1,1).squeeze())
+            loss_cri = criterion(seg_pred.view(-1, 7), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
+            loss = loss_tri + loss_cri
+            print(f"epoch {epoch}, batch {cnt}, loss_tri {loss_tri}, loss_cri {loss_cri}, loss {loss}")
+            cnt += 1
             # print(seg.view(-1, 1).dtype)
             loss.backward()
             opt.step()
