@@ -107,6 +107,13 @@ def visualization(data, seg, pred):
     PlyData([vertex]).write(filepath_gt)
     print('PLY visualization file saved in', filepath_gt)
 
+## activation hook added
+## https://discuss.pytorch.org/t/how-can-l-load-my-best-model-as-a-feature-extractor-evaluator/17254/4
+activation = {}
+def get_activation(name):
+    def hook(model, input, output):
+        activation[name] = output.detach()
+    return hook
 
 def extractor(data):
     """
@@ -132,9 +139,15 @@ def extractor(data):
                 
     #Try to load models
     model = DGCNN_semseg(args).to(device)
+    model.conv4.register_forward_hook(get_activation('conv4')) ## middle layer extract
+    model.conv5.register_forward_hook(get_activation('conv5')) ## middle layer extract
+    model.conv6.register_forward_hook(get_activation('conv6')) ## middle layer extract
+    model.conv7.register_forward_hook(get_activation('conv7')) ## middle layer extract
+    model.conv8.register_forward_hook(get_activation('conv8')) ## middle layer extract
     model = nn.DataParallel(model)
     model.load_state_dict(torch.load(os.path.join(args.model_root, 'model_all.t7')))
     model = model.eval()
+
 
 
     data = torch.from_numpy(data)
@@ -144,6 +157,21 @@ def extractor(data):
     seg_pred = model(data)
     seg_pred = seg_pred.permute(0, 2, 1).contiguous()
     
+    # print("activation")
+    # print(activation['conv8'].shape)
+
+    conv4 = activation['conv4'].detach().cpu().numpy()
+    conv4 = np.squeeze(conv4)
+    conv5 = activation['conv5'].detach().cpu().numpy()
+    conv5 = np.squeeze(conv5)
+    conv6 = activation['conv6'].detach().cpu().numpy()
+    conv6 = np.squeeze(conv6)
+    conv7 = activation['conv7'].detach().cpu().numpy()
+    conv7 = np.squeeze(conv7)
+    conv8 = activation['conv8'].detach().cpu().numpy()
+    conv8 = np.squeeze(conv8)
+
+
     ### different types of embeddings
     m = nn.Sigmoid()
     sigmoid_embeddings = m(seg_pred)
@@ -171,6 +199,11 @@ def extractor(data):
     f.create_dataset('relu_embeddings', data = relu_embeddings)
     f.create_dataset('tanh_embeddings', data = tanh_embeddings)
     f.create_dataset('softmax_embeddings', data = softmax_embeddings)
+    f.create_dataset('conv4', data = conv4)
+    f.create_dataset('conv5', data = conv5)
+    f.create_dataset('conv6', data = conv6)
+    f.create_dataset('conv7', data = conv7)
+    f.create_dataset('conv8', data = conv8)
 
     # print(f"output from network {seg_pred_np}")
     # print("seg_pred_shape, ",seg_pred_np.shape, pred_np.shape) #, seg_pred_np, pred_np)

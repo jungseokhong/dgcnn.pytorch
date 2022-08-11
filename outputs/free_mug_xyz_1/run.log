@@ -1,0 +1,23 @@
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=16, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=8, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=4, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=2, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=1, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_xyz_1', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Train 0, loss: 0.744342, train acc: 0.937981, train avg acc: 0.891337, train iou: 0.832506

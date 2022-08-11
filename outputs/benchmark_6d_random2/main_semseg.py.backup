@@ -23,6 +23,7 @@ from torch.utils.data import DataLoader
 from util import cal_loss, IOStream
 import sklearn.metrics as metrics
 from plyfile import PlyData, PlyElement
+import h5py
 
 global room_seg
 room_seg = []
@@ -201,7 +202,10 @@ def train(args, io):
             seg_pred = seg_pred.permute(0, 2, 1).contiguous()
             # print("seg_pred, view, seg view: ", seg_pred.size(), "!!", seg_pred.view(-1,13).size(), "!!", seg.size() , "!!", seg.view(-1,1).size())
             ## seg_pred, view, seg view:  torch.Size([32, 4096, 13]) !! torch.Size([131072, 13]) !! torch.Size([32, 4096]) !! torch.Size([131072, 1])
-            loss = criterion(seg_pred.view(-1, 7), seg.view(-1,1).squeeze()) ## CHECK shapes
+            ## print(f"seg_pred {seg_pred.size()} seg_pred view {seg_pred.view(-1,7).size()} seg {seg.size()} seg.view {seg.view(-1,1).size()} seg view squeeze {seg.view(-1,1).squeeze().size()}")
+            ## seg_pred torch.Size([32, 4096, 7]) seg_pred view torch.Size([131072, 7]) seg torch.Size([32, 4096]) seg.view torch.Size([131072, 1]) seg view squeeze torch.Size([131072])
+            loss = criterion(seg_pred.view(-1, 7), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
+            # print(seg.view(-1, 1).dtype)
             loss.backward()
             opt.step()
             pred = seg_pred.max(dim=2)[1]               # (batch_size, num_points)
@@ -362,6 +366,109 @@ def test(args, io):
                                                                                          np.mean(all_ious))
         io.cprint(outstr)
 
+activation = {}
+def get_activation(name):
+    def hook(model, input, output):
+        activation[name] = output.detach()
+    return hook
+
+
+def test_embeddings(args, io):
+    all_true_cls = []
+    all_pred_cls = []
+    all_true_seg = []
+    all_pred_seg = []
+    test_area = args.test_area
+    if (args.test_area == 'all') or (test_area == args.test_area):
+        # test_loader = DataLoader(S3DIS(partition='test', num_points=args.num_points, test_area=test_area),
+        #                          batch_size=args.test_batch_size, shuffle=False, drop_last=False)
+        test_loader = DataLoader(BENCHMARK(partition='train', num_points=args.num_points),
+                                    batch_size=16, shuffle=False, drop_last=False)
+
+        device = torch.device("cuda" if args.cuda else "cpu")
+                    
+        #Try to load models
+        benchmark_seg_colors = test_loader.dataset.benchmark_seg_colors
+        if args.model == 'dgcnn':
+            model = DGCNN_semseg(args).to(device)
+        else:
+            raise Exception("Not implemented")
+        
+        model.conv8.register_forward_hook(get_activation('conv8')) ## middle layer extract
+        model = nn.DataParallel(model)
+        model.load_state_dict(torch.load(os.path.join(args.model_root, 'model_%s.t7' % args.test_area)))
+        model = model.eval()
+        test_acc = 0.0
+        count = 0.0
+        test_true_cls = []
+        test_pred_cls = []
+        test_true_seg = []
+        test_pred_seg = []
+        for i, (data, seg) in enumerate(test_loader):
+            data, seg = data.to(device), seg.to(device)
+            data = data[:,:,:6] ## data changed (16, 4096, 6)
+            data = data.permute(0, 2, 1) # (16, 6, 4096)
+            batch_size = data.size()[0]
+            seg_pred = model(data) # (16, 7, 4096)
+            seg_pred = seg_pred.permute(0, 2, 1).contiguous() # (16, 4096, 7)
+            
+            ## 7D embedding
+            seg_pred_np = seg_pred.detach().cpu().numpy()
+
+            ## conv 8 embedding
+            conv8 = activation['conv8'].permute(0, 2, 1).contiguous()
+            conv8 = conv8.detach().cpu().numpy()
+            conv8 = np.squeeze(conv8)
+
+            ## prediction
+            pred = seg_pred.max(dim=2)[1] # (16, 4096) # return index has maximum value.
+            
+            ## ground truth
+            seg_np = seg.cpu().numpy() # (16, 4096)
+
+            pred_np = pred.detach().cpu().numpy()
+            test_true_cls.append(seg_np.reshape(-1))
+            test_pred_cls.append(pred_np.reshape(-1))
+            test_true_seg.append(seg_np)
+            test_pred_seg.append(pred_np)
+            print(f"{i} 7d shape {seg_pred_np.shape} conv8 shape {conv8.shape} pred shape {pred_np.shape} gt shape {seg_np.shape}")
+
+            with h5py.File('emb_for_mlp/emb_for_mlp_'+str(i).zfill(4)+'.h5', 'w') as f:
+                f.create_dataset('embeddings', data = seg_pred_np)
+                f.create_dataset('conv8_embeddings', data = conv8)
+                f.create_dataset('predictions', data = pred_np)
+                f.create_dataset('labels', data = seg_np)
+
+        test_true_cls = np.concatenate(test_true_cls)
+        test_pred_cls = np.concatenate(test_pred_cls)
+        test_acc = metrics.accuracy_score(test_true_cls, test_pred_cls)
+        avg_per_class_acc = metrics.balanced_accuracy_score(test_true_cls, test_pred_cls)
+        test_true_seg = np.concatenate(test_true_seg, axis=0)
+        test_pred_seg = np.concatenate(test_pred_seg, axis=0)
+        test_ious = calculate_sem_IoU(test_pred_seg, test_true_seg)
+        outstr = 'Test :: test area: %s, test acc: %.6f, test avg acc: %.6f, test iou: %.6f' % (test_area,
+                                                                                                test_acc,
+                                                                                                avg_per_class_acc,
+                                                                                                np.mean(test_ious))
+        io.cprint(outstr)
+        all_true_cls.append(test_true_cls)
+        all_pred_cls.append(test_pred_cls)
+        all_true_seg.append(test_true_seg)
+        all_pred_seg.append(test_pred_seg)
+
+    if args.test_area == 'all':
+        all_true_cls = np.concatenate(all_true_cls)
+        all_pred_cls = np.concatenate(all_pred_cls)
+        all_acc = metrics.accuracy_score(all_true_cls, all_pred_cls)
+        avg_per_class_acc = metrics.balanced_accuracy_score(all_true_cls, all_pred_cls)
+        all_true_seg = np.concatenate(all_true_seg, axis=0)
+        all_pred_seg = np.concatenate(all_pred_seg, axis=0)
+        all_ious = calculate_sem_IoU(all_pred_seg, all_true_seg)
+        outstr = 'Overall Test :: test acc: %.6f, test avg acc: %.6f, test iou: %.6f' % (all_acc,
+                                                                                         avg_per_class_acc,
+                                                                                         np.mean(all_ious))
+        io.cprint(outstr)
+
 
 if __name__ == "__main__":
     # Training settings
@@ -430,4 +537,5 @@ if __name__ == "__main__":
     if not args.eval:
         train(args, io)
     else:
-        test(args, io)
+        test_embeddings(args, io)
+        # test(args, io)
