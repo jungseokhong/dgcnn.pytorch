@@ -211,11 +211,12 @@ def train(args, io):
             ## seg_pred torch.Size([32, 4096, 7]) seg_pred view torch.Size([131072, 7]) seg torch.Size([32, 4096]) seg.view torch.Size([131072, 1]) seg view squeeze torch.Size([131072])
             # print(f"seg {seg_pred.view(7,-1).size()}, label {seg.view(-1,1).squeeze().size()}")
             # print(seg_pred.shape, seg.shape, np.unique(seg.detach().cpu().numpy()))
-            loss_tri = loss_func(seg_pred.view(-1, 2), seg.view(-1,1).squeeze())
-            loss_cri = criterion(seg_pred.view(-1, 2), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
-            loss = loss_tri + loss_cri
+            # loss_tri = loss_func(seg_pred.view(-1, 2), seg.view(-1,1).squeeze())
+            loss = criterion(seg_pred.view(-1, 2), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
+            # loss = loss_tri + loss_cri
             if cnt % 100 == 1:
-                print(f"epoch {epoch}, batch {cnt}, loss_tri {loss_tri}, loss_cri {loss_cri}, loss {loss}")
+                # print(f"epoch {epoch}, batch {cnt}, loss_tri {loss_tri}, loss_cri {loss_cri}, loss {loss}")
+                print(f"epoch {epoch}, batch {cnt}, loss {loss}")
             cnt += 1
             # print(seg.view(-1, 1).dtype)
             loss.backward()
@@ -270,9 +271,9 @@ def train(args, io):
             # print("seg_pred ", seg_pred.shape)
             seg_pred = seg_pred.permute(0, 2, 1).contiguous()
             # print("after permute ", seg_pred.shape)
-            loss_tri = loss_func(seg_pred.view(-1, 2), seg.view(-1,1).squeeze())
-            loss_cri = criterion(seg_pred.view(-1, 2), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
-            loss = loss_tri + loss_cri
+            # loss_tri = loss_func(seg_pred.view(-1, 2), seg.view(-1,1).squeeze())
+            loss = criterion(seg_pred.view(-1, 2), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
+            # loss = loss_tri + loss_cri
 
             pred = seg_pred.max(dim=2)[1]
             count += batch_size

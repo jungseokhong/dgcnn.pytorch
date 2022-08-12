@@ -227,7 +227,8 @@ def train(args, io):
 
             loss = criterion(seg_pred.view(-1,64), seg.view(-1,1).squeeze())
 
-            if cnt % 100 == 1:
+            # if cnt % 100 == 1:
+            if True:
                 # print(f"epoch {epoch}, batch {cnt}, loss_tri {loss_tri}, loss_cri {loss_cri}, loss {loss}")
                 print(f"epoch {epoch}, batch {cnt}, loss {loss}")
 
@@ -285,9 +286,7 @@ def train(args, io):
             # print("seg_pred ", seg_pred.shape)
             seg_pred = seg_pred.permute(0, 2, 1).contiguous()
             # print("after permute ", seg_pred.shape)
-            loss_tri = loss_func(seg_pred.view(-1, 2), seg.view(-1,1).squeeze())
-            loss_cri = criterion(seg_pred.view(-1, 2), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
-            loss = loss_tri + loss_cri
+            loss = criterion(seg_pred.view(-1,64), seg.view(-1,1).squeeze())
 
             pred = seg_pred.max(dim=2)[1]
             count += batch_size
@@ -333,7 +332,7 @@ def test(args, io):
         #Try to load models
         free_mug_colors = test_loader.dataset.free_mug_colors
         if args.model == 'dgcnn':
-            model = DGCNN_semseg_xyz(args).to(device)
+            model = DGCNN_semseg_am(args).to(device)
         else:
             raise Exception("Not implemented")
             
