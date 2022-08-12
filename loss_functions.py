@@ -32,6 +32,8 @@ class AngularPenaltySMLoss(nn.Module):
         self.out_features = out_features
         self.fc = nn.Linear(in_features, out_features, bias=False)
         self.eps = eps
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
     def forward(self, x, labels):
         '''
@@ -40,7 +42,9 @@ class AngularPenaltySMLoss(nn.Module):
         assert len(x) == len(labels)
         assert torch.min(labels) >= 0
         assert torch.max(labels) < self.out_features
-        
+        # x = x.to(self.device)
+        # labels = labels.to(self.device)
+
         for W in self.fc.parameters():
             W = F.normalize(W, p=2, dim=1)
 

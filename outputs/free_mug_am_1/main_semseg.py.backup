@@ -16,19 +16,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.optim.lr_scheduler import CosineAnnealingLR, StepLR
-from data import FREEMUG
-from model import DGCNN_semseg_xyz, DGCNN_semseg_am
+from data import BENCHMARK
+from model import DGCNN_semseg
 import numpy as np
 from torch.utils.data import DataLoader
 from util import cal_loss, IOStream
 import sklearn.metrics as metrics
 from plyfile import PlyData, PlyElement
-from pytorch_metric_learning import losses
-from pytorch_metric_learning.distances import CosineSimilarity
-from pytorch_metric_learning.reducers import ThresholdReducer
-from pytorch_metric_learning.regularizers import LpRegularizer
-from loss_functions import AngularPenaltySMLoss
-
+import h5py
 
 global room_seg
 room_seg = []
@@ -53,17 +48,16 @@ def _init_():
 
 
 def calculate_sem_IoU(pred_np, seg_np, visual=False):
-    num_classes = 2
-    I_all = np.zeros(num_classes)
-    U_all = np.zeros(num_classes)
+    I_all = np.zeros(7)
+    U_all = np.zeros(7)
     for sem_idx in range(seg_np.shape[0]):
-        for sem in range(num_classes):
+        for sem in range(7):
             I = np.sum(np.logical_and(pred_np[sem_idx] == sem, seg_np[sem_idx] == sem))
             U = np.sum(np.logical_or(pred_np[sem_idx] == sem, seg_np[sem_idx] == sem))
             I_all[sem] += I
             U_all[sem] += U
     if visual:
-        for sem in range(num_classes):
+        for sem in range(7):
             if U_all[sem] == 0:
                 I_all[sem] = 1
                 U_all[sem] = 1
@@ -147,16 +141,20 @@ def visualization(visu, visu_format, data, seg, pred, semseg_colors):
 
         
 def train(args, io):
-    train_loader = DataLoader(FREEMUG(partition='train', num_points=args.num_points), 
+    # train_loader = DataLoader(S3DIS(partition='train', num_points=args.num_points, test_area=args.test_area), 
+    #                           num_workers=8, batch_size=args.batch_size, shuffle=True, drop_last=True)
+    # test_loader = DataLoader(S3DIS(partition='test', num_points=args.num_points, test_area=args.test_area), 
+    #                         num_workers=8, batch_size=args.test_batch_size, shuffle=True, drop_last=False)
+    train_loader = DataLoader(BENCHMARK(partition='train', num_points=args.num_points), 
                               num_workers=8, batch_size=args.batch_size, shuffle=True, drop_last=True)
-    test_loader = DataLoader(FREEMUG(partition='test', num_points=args.num_points), 
+    test_loader = DataLoader(BENCHMARK(partition='test', num_points=args.num_points), 
                             num_workers=8, batch_size=args.test_batch_size, shuffle=True, drop_last=False)
 
     device = torch.device("cuda" if args.cuda else "cpu")
 
     #Try to load models
     if args.model == 'dgcnn':
-        model = DGCNN_semseg_am(args).to(device)
+        model = DGCNN_semseg(args).to(device)
     else:
         raise Exception("Not implemented")
     print(str(model))
@@ -176,17 +174,7 @@ def train(args, io):
     elif args.scheduler == 'step':
         scheduler = StepLR(opt, 20, 0.5, args.epochs)
 
-    # criterion = cal_loss
-    # loss_func = losses.TripletMarginLoss(distance = CosineSimilarity(), 
-    #                     reducer = ThresholdReducer(high=0.3), 
-    #                     embedding_regularizer = LpRegularizer())
-
-    in_features = 64
-    out_features = 2 # Number of classes
-
-    criterion = AngularPenaltySMLoss(in_features, out_features, loss_type='cosface').to(device) # loss_type in ['arcface', 'sphereface', 'cosface']
-    criterion = nn.DataParallel(criterion)
-
+    criterion = cal_loss
 
     best_test_iou = 0
     for epoch in range(args.epochs):
@@ -201,11 +189,10 @@ def train(args, io):
         train_true_seg = []
         train_pred_seg = []
         train_label_seg = []
-        cnt = 0
         for data, seg in train_loader:
             data, seg = data.to(device), seg.to(device)
             # print("data shape0, ", data.size())
-            data = data[:, :, :3] ## only xyz
+            data = data[:, :, :6] ## only xyzrgb
             # print("data shape1, ", data.size()) 
             data = data.permute(0, 2, 1) ## CHECK why permute
             # print("data shape, ", data.size()) ## torch.Size([32, 9, 4096])
@@ -217,21 +204,7 @@ def train(args, io):
             ## seg_pred, view, seg view:  torch.Size([32, 4096, 13]) !! torch.Size([131072, 13]) !! torch.Size([32, 4096]) !! torch.Size([131072, 1])
             ## print(f"seg_pred {seg_pred.size()} seg_pred view {seg_pred.view(-1,7).size()} seg {seg.size()} seg.view {seg.view(-1,1).size()} seg view squeeze {seg.view(-1,1).squeeze().size()}")
             ## seg_pred torch.Size([32, 4096, 7]) seg_pred view torch.Size([131072, 7]) seg torch.Size([32, 4096]) seg.view torch.Size([131072, 1]) seg view squeeze torch.Size([131072])
-            # print(f"seg {seg_pred.view(7,-1).size()}, label {seg.view(-1,1).squeeze().size()}")
-            # print(seg_pred.shape, seg.shape, np.unique(seg.detach().cpu().numpy()))
-            # loss_tri = loss_func(seg_pred.view(-1, 2), seg.view(-1,1).squeeze())
-            # loss_cri = criterion(seg_pred.view(-1, 2), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
-
-            
-            # loss = loss_tri + loss_cri
-
-            loss = criterion(seg_pred.view(-1,64), seg.view(-1,1).squeeze())
-
-            if cnt % 100 == 1:
-                # print(f"epoch {epoch}, batch {cnt}, loss_tri {loss_tri}, loss_cri {loss_cri}, loss {loss}")
-                print(f"epoch {epoch}, batch {cnt}, loss {loss}")
-
-            cnt += 1
+            loss = criterion(seg_pred.view(-1, 7), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
             # print(seg.view(-1, 1).dtype)
             loss.backward()
             opt.step()
@@ -278,17 +251,14 @@ def train(args, io):
         test_pred_seg = []
         for data, seg in test_loader:
             data, seg = data.to(device), seg.to(device)
-            data = data[:,:,:3] ## test only xyzrgb
+            data = data[:,:,:6] ## test only xyzrgb
             data = data.permute(0, 2, 1)
             batch_size = data.size()[0]
             seg_pred = model(data)
             # print("seg_pred ", seg_pred.shape)
             seg_pred = seg_pred.permute(0, 2, 1).contiguous()
             # print("after permute ", seg_pred.shape)
-            loss_tri = loss_func(seg_pred.view(-1, 2), seg.view(-1,1).squeeze())
-            loss_cri = criterion(seg_pred.view(-1, 2), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
-            loss = loss_tri + loss_cri
-
+            loss = criterion(seg_pred.view(-1, 7), seg.view(-1,1).squeeze())
             pred = seg_pred.max(dim=2)[1]
             count += batch_size
             test_loss += loss.item() * batch_size
@@ -325,15 +295,15 @@ def test(args, io):
     if (args.test_area == 'all') or (test_area == args.test_area):
         # test_loader = DataLoader(S3DIS(partition='test', num_points=args.num_points, test_area=test_area),
         #                          batch_size=args.test_batch_size, shuffle=False, drop_last=False)
-        test_loader = DataLoader(FREEMUG(partition='test', num_points=args.num_points),
+        test_loader = DataLoader(BENCHMARK(partition='test', num_points=args.num_points),
                                     batch_size=args.test_batch_size, shuffle=False, drop_last=False)
 
         device = torch.device("cuda" if args.cuda else "cpu")
                     
         #Try to load models
-        free_mug_colors = test_loader.dataset.free_mug_colors
+        benchmark_seg_colors = test_loader.dataset.benchmark_seg_colors
         if args.model == 'dgcnn':
-            model = DGCNN_semseg_xyz(args).to(device)
+            model = DGCNN_semseg(args).to(device)
         else:
             raise Exception("Not implemented")
             
@@ -348,7 +318,7 @@ def test(args, io):
         test_pred_seg = []
         for data, seg in test_loader:
             data, seg = data.to(device), seg.to(device)
-            data = data[:,:,:3] ## data changed (16, 4096, 6)
+            data = data[:,:,:6] ## data changed (16, 4096, 6)
             data = data.permute(0, 2, 1) # (16, 6, 4096)
             batch_size = data.size()[0]
             seg_pred = model(data) # (16, 7, 4096)
@@ -363,9 +333,112 @@ def test(args, io):
             test_pred_seg.append(pred_np)
             # visiualization
             print("test data shape, ", data.shape, seg.shape, pred.shape)
-            visualization(args.visu, args.visu_format, data, seg, pred, free_mug_colors) 
+            visualization(args.visu, args.visu_format, data, seg, pred, benchmark_seg_colors) 
         if visual_warning and args.visu != '':
             print('Visualization Failed: You can only choose a room to visualize within the scope of the test area')
+        test_true_cls = np.concatenate(test_true_cls)
+        test_pred_cls = np.concatenate(test_pred_cls)
+        test_acc = metrics.accuracy_score(test_true_cls, test_pred_cls)
+        avg_per_class_acc = metrics.balanced_accuracy_score(test_true_cls, test_pred_cls)
+        test_true_seg = np.concatenate(test_true_seg, axis=0)
+        test_pred_seg = np.concatenate(test_pred_seg, axis=0)
+        test_ious = calculate_sem_IoU(test_pred_seg, test_true_seg)
+        outstr = 'Test :: test area: %s, test acc: %.6f, test avg acc: %.6f, test iou: %.6f' % (test_area,
+                                                                                                test_acc,
+                                                                                                avg_per_class_acc,
+                                                                                                np.mean(test_ious))
+        io.cprint(outstr)
+        all_true_cls.append(test_true_cls)
+        all_pred_cls.append(test_pred_cls)
+        all_true_seg.append(test_true_seg)
+        all_pred_seg.append(test_pred_seg)
+
+    if args.test_area == 'all':
+        all_true_cls = np.concatenate(all_true_cls)
+        all_pred_cls = np.concatenate(all_pred_cls)
+        all_acc = metrics.accuracy_score(all_true_cls, all_pred_cls)
+        avg_per_class_acc = metrics.balanced_accuracy_score(all_true_cls, all_pred_cls)
+        all_true_seg = np.concatenate(all_true_seg, axis=0)
+        all_pred_seg = np.concatenate(all_pred_seg, axis=0)
+        all_ious = calculate_sem_IoU(all_pred_seg, all_true_seg)
+        outstr = 'Overall Test :: test acc: %.6f, test avg acc: %.6f, test iou: %.6f' % (all_acc,
+                                                                                         avg_per_class_acc,
+                                                                                         np.mean(all_ious))
+        io.cprint(outstr)
+
+activation = {}
+def get_activation(name):
+    def hook(model, input, output):
+        activation[name] = output.detach()
+    return hook
+
+
+def test_embeddings(args, io):
+    all_true_cls = []
+    all_pred_cls = []
+    all_true_seg = []
+    all_pred_seg = []
+    test_area = args.test_area
+    if (args.test_area == 'all') or (test_area == args.test_area):
+        # test_loader = DataLoader(S3DIS(partition='test', num_points=args.num_points, test_area=test_area),
+        #                          batch_size=args.test_batch_size, shuffle=False, drop_last=False)
+        test_loader = DataLoader(BENCHMARK(partition='train', num_points=args.num_points),
+                                    batch_size=16, shuffle=False, drop_last=False)
+
+        device = torch.device("cuda" if args.cuda else "cpu")
+                    
+        #Try to load models
+        benchmark_seg_colors = test_loader.dataset.benchmark_seg_colors
+        if args.model == 'dgcnn':
+            model = DGCNN_semseg(args).to(device)
+        else:
+            raise Exception("Not implemented")
+        
+        model.conv8.register_forward_hook(get_activation('conv8')) ## middle layer extract
+        model = nn.DataParallel(model)
+        model.load_state_dict(torch.load(os.path.join(args.model_root, 'model_%s.t7' % args.test_area)))
+        model = model.eval()
+        test_acc = 0.0
+        count = 0.0
+        test_true_cls = []
+        test_pred_cls = []
+        test_true_seg = []
+        test_pred_seg = []
+        for i, (data, seg) in enumerate(test_loader):
+            data, seg = data.to(device), seg.to(device)
+            data = data[:,:,:6] ## data changed (16, 4096, 6)
+            data = data.permute(0, 2, 1) # (16, 6, 4096)
+            batch_size = data.size()[0]
+            seg_pred = model(data) # (16, 7, 4096)
+            seg_pred = seg_pred.permute(0, 2, 1).contiguous() # (16, 4096, 7)
+            
+            ## 7D embedding
+            seg_pred_np = seg_pred.detach().cpu().numpy()
+
+            ## conv 8 embedding
+            conv8 = activation['conv8'].permute(0, 2, 1).contiguous()
+            conv8 = conv8.detach().cpu().numpy()
+            conv8 = np.squeeze(conv8)
+
+            ## prediction
+            pred = seg_pred.max(dim=2)[1] # (16, 4096) # return index has maximum value.
+            
+            ## ground truth
+            seg_np = seg.cpu().numpy() # (16, 4096)
+
+            pred_np = pred.detach().cpu().numpy()
+            test_true_cls.append(seg_np.reshape(-1))
+            test_pred_cls.append(pred_np.reshape(-1))
+            test_true_seg.append(seg_np)
+            test_pred_seg.append(pred_np)
+            print(f"{i} 7d shape {seg_pred_np.shape} conv8 shape {conv8.shape} pred shape {pred_np.shape} gt shape {seg_np.shape}")
+
+            with h5py.File('emb_for_mlp/emb_for_mlp_'+str(i).zfill(4)+'.h5', 'w') as f:
+                f.create_dataset('embeddings', data = seg_pred_np)
+                f.create_dataset('conv8_embeddings', data = conv8)
+                f.create_dataset('predictions', data = pred_np)
+                f.create_dataset('labels', data = seg_np)
+
         test_true_cls = np.concatenate(test_true_cls)
         test_pred_cls = np.concatenate(test_pred_cls)
         test_acc = metrics.accuracy_score(test_true_cls, test_pred_cls)
@@ -405,8 +478,8 @@ if __name__ == "__main__":
     parser.add_argument('--model', type=str, default='dgcnn', metavar='N',
                         choices=['dgcnn'],
                         help='Model to use, [dgcnn]')
-    parser.add_argument('--dataset', type=str, default='FREEMUG', metavar='N',
-                        choices=['S3DIS, BENCHMARK, FREEMUG'])
+    parser.add_argument('--dataset', type=str, default='BENCHMARK', metavar='N',
+                        choices=['S3DIS, BENCHMARK'])
     parser.add_argument('--test_area', type=str, default=None, metavar='N',
                         choices=['1', '2', '3', '4', '5', '6', 'all'])
     parser.add_argument('--batch_size', type=int, default=32, metavar='batch_size',
@@ -430,7 +503,7 @@ if __name__ == "__main__":
                         help='random seed (default: 1)')
     parser.add_argument('--eval', type=bool,  default=False,
                         help='evaluate the model')
-    parser.add_argument('--num_points', type=int, default=1024,
+    parser.add_argument('--num_points', type=int, default=4096,
                         help='num of points to use')
     parser.add_argument('--dropout', type=float, default=0.5,
                         help='dropout rate')
@@ -464,4 +537,5 @@ if __name__ == "__main__":
     if not args.eval:
         train(args, io)
     else:
+        # test_embeddings(args, io)
         test(args, io)
