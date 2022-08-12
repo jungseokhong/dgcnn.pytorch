@@ -184,7 +184,7 @@ def train(args, io):
     in_features = 64
     out_features = 2 # Number of classes
 
-    criterion = AngularPenaltySMLoss(in_features, out_features, loss_type='cosface').to(device) # loss_type in ['arcface', 'sphereface', 'cosface']
+    criterion = AngularPenaltySMLoss(in_features, out_features, loss_type=args.loss_type).to(device) # loss_type in ['arcface', 'sphereface', 'cosface']
     criterion = nn.DataParallel(criterion)
 
 
@@ -443,6 +443,8 @@ if __name__ == "__main__":
                         help='visualize the model')
     parser.add_argument('--visu_format', type=str, default='ply',
                         help='file format of visualization')
+    parser.add_argument('--loss_type', type=str, default='arcface', metavar='N',
+                        choices=['arcface', 'sphereface', 'cosface'])
     args = parser.parse_args()
 
     _init_()
