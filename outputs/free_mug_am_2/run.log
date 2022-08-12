@@ -1,0 +1,6 @@
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_am_2', k=20, loss_type='cosface', lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Train 0, loss: 6.047452, train acc: 0.000102, train avg acc: 0.000069, train iou: 0.000069
+Test 0, loss: 5.650993, test acc: 0.000000, test avg acc: 0.000000, test iou: 0.000000
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_am_2', k=20, loss_type='cosface', lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=1024, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices

@@ -511,7 +511,7 @@ class DGCNN_semseg_am(nn.Module):
                                    self.bn8,
                                    nn.LeakyReLU(negative_slope=0.2))
         self.dp1 = nn.Dropout(p=args.dropout)
-        self.conv9 = nn.Conv1d(256, 64, kernel_size=1, bias=False) ## change to 7 from 13
+        self.conv9 = nn.Conv1d(256, 2, kernel_size=1, bias=False) ## change to 7 from 13
         
 
     def forward(self, x):
