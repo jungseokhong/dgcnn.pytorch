@@ -1,2 +1,0 @@
-Namespace(batch_size=32, dataset='BENCHMARK', dropout=0.5, emb_dims=1024, epochs=100, eval=True, exp_name='exp', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=4096, scheduler='cos', seed=1, test_area=None, test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
-Using GPU : 0 from 1 devices

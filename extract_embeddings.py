@@ -3,7 +3,7 @@ import argparse
 import torch
 import torch.nn as nn
 from data import BENCHMARK
-from model import DGCNN_semseg
+from model import DGCNN_semseg, DGCNN_semseg_xyz
 import numpy as np
 import h5py
 import json
@@ -51,17 +51,59 @@ def load_color_benchmark_seg():
         if (row_index >= img_size):
             break  
 
+def load_color_free_mug():
+    colors = []
+    labels = []
+    f = open("prepare_data/meta/free_mug_colors.txt")
+    for line in json.load(f):
+        colors.append(line['color'])
+        labels.append(line['label'])
+    semseg_colors = np.array(colors)
+    semseg_colors = semseg_colors[:, [2, 1, 0]]
+    partseg_labels = np.array(labels)
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    img_size = 1500
+    img = np.zeros((500, img_size, 3), dtype="uint8")
+    cv2.rectangle(img, (0, 0), (img_size, 750), [255, 255, 255], thickness=-1)
+    color_size = 64
+    color_index = 0
+    label_index = 0
+    row_index = 16
+    for _ in range(0, img_size):
+        column_index = 32
+        for _ in range(0, img_size):
+            color = semseg_colors[color_index]
+            label = partseg_labels[label_index]
+            length = len(str(label))
+            cv2.rectangle(img, (column_index, row_index), (column_index + color_size, row_index + color_size),
+                          color=(int(color[0]), int(color[1]), int(color[2])), thickness=-1)
+            img = cv2.putText(img, label, (column_index + int(color_size * 1.15), row_index + int(color_size / 2)),
+                              font,
+                              0.7, (0, 0, 0), 2)
+            column_index = column_index + 200
+            color_index = color_index + 1
+            label_index = label_index + 1
+            if color_index >= 2:
+                cv2.imwrite("prepare_data/meta/benchmark_seg_colors.png", img, [cv2.IMWRITE_PNG_COMPRESSION, 0])
+                return np.array(colors)
+            elif (column_index >= 1280):
+                break
+        row_index = row_index + int(color_size * 1.3)
+        if (row_index >= img_size):
+            break  
+
 def calculate_sem_IoU(pred_np, seg_np, visual=False):
-    I_all = np.zeros(7)
-    U_all = np.zeros(7)
+    num_classes = 2
+    I_all = np.zeros(num_classes)
+    U_all = np.zeros(num_classes)
     for sem_idx in range(seg_np.shape[0]):
-        for sem in range(7):
+        for sem in range(num_classes):
             I = np.sum(np.logical_and(pred_np[sem_idx] == sem, seg_np[sem_idx] == sem))
             U = np.sum(np.logical_or(pred_np[sem_idx] == sem, seg_np[sem_idx] == sem))
             I_all[sem] += I
             U_all[sem] += U
     if visual:
-        for sem in range(7):
+        for sem in range(num_classes):
             if U_all[sem] == 0:
                 I_all[sem] = 1
                 U_all[sem] = 1
@@ -77,8 +119,10 @@ def calculate_sem_IoU(pred_np, seg_np, visual=False):
 def visualization(data, seg, pred):
     ## data shape (1,N,6), seg (1,N), pred (1,N)
     data = data[0] # shape (N,6)
-    semseg_colors = load_color_benchmark_seg()
-    
+    # semseg_colors = load_color_benchmark_seg()
+    semseg_colors = load_color_free_mug()
+
+
     # print("color")
     # print(semseg_colors[pred][0])
     # print(semseg_colors[pred].shape)
@@ -97,7 +141,7 @@ def visualization(data, seg, pred):
     mIoU = str(round(mIoU, 4))
 
     filepath = 'testdata'+'/'+'test2'+'_pred_'+mIoU+'_'+'.ply'
-    filepath_gt = 'testdata'+'/'+'test2'+'_gt.ply'
+    filepath_gt = 'testdata'+'/'+'free_mug'+'_gt.ply'
     xyzRGB = [(xyzRGB[i, 0], xyzRGB[i, 1], xyzRGB[i, 2], xyzRGB[i, 3], xyzRGB[i, 4], xyzRGB[i, 5]) for i in range(xyzRGB.shape[0])]
     xyzRGB_gt = [(xyzRGB_gt[i, 0], xyzRGB_gt[i, 1], xyzRGB_gt[i, 2], xyzRGB_gt[i, 3], xyzRGB_gt[i, 4], xyzRGB_gt[i, 5]) for i in range(xyzRGB_gt.shape[0])]
     vertex = PlyElement.describe(np.array(xyzRGB, dtype=[('x', 'f4'), ('y', 'f4'), ('z', 'f4'), ('red', 'u1'), ('green', 'u1'), ('blue', 'u1')]), 'vertex')
@@ -128,7 +172,7 @@ def extractor(data):
     args = parser.parse_args()
     ## model weights, can be hardcoded.
     # args.model_root = 'outputs/benchmark_6d_1/models/'
-    args.model_root = 'outputs/benchmark_6d_random2/models/'
+    args.model_root = 'outputs/free_mug_am_cos/models/'
 
 
     ## Model related paramters
@@ -138,7 +182,8 @@ def extractor(data):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
                 
     #Try to load models
-    model = DGCNN_semseg(args).to(device)
+    # model = DGCNN_semseg(args).to(device)
+    model = DGCNN_semseg_xyz(args).to(device)
     model.conv4.register_forward_hook(get_activation('conv4')) ## middle layer extract
     model.conv5.register_forward_hook(get_activation('conv5')) ## middle layer extract
     model.conv6.register_forward_hook(get_activation('conv6')) ## middle layer extract
@@ -193,7 +238,7 @@ def extractor(data):
     tanh_embeddings = tanh_embeddings.detach().cpu().numpy()
     softmax_embeddings = softmax_embeddings.detach().cpu().numpy()
     
-    f = h5py.File('test_2_embeddings_rand2.h5', 'w')
+    f = h5py.File('test_2_embeddings_am_cos.h5', 'w')
     f.create_dataset('embeddings', data = seg_pred_np)
     f.create_dataset('sigmoid_embeddings', data = sigmoid_embeddings)
     f.create_dataset('relu_embeddings', data = relu_embeddings)
@@ -214,14 +259,27 @@ if __name__ == "__main__":
     # data = np.random.randn(1, N ,6).astype(float)
     # extractor(data)
 
-    ## test case
-    f = h5py.File('testdata/data_002.h5', 'r')
-    xyzRGB = f['data']
-    label = f['label']
-    data = xyzRGB[::].reshape(1,-1,6)
+    ## test case 1
+    # f = h5py.File('testdata/data_002.h5', 'r')
+    # xyzRGB = f['data']
+    # label = f['label']
+    # data = xyzRGB[::].reshape(1,-1,6)
+    # seg = label[::].reshape(1,-1)
+    # print("data shape, ", data.shape, " seg shape", seg.shape)
+    # seg_pred_np, pred_np = extractor(data)
+    # print(pred_np.shape, f['label'][::].reshape(1,-1).shape)
+    # print(calculate_sem_IoU(pred_np, f['label'][::].reshape(1,-1)))
+    # print(visualization(data, seg, pred_np))
+
+
+    ## test case 2
+    f = h5py.File('data/xyz_data_test/data_021.h5', 'r')
+    xyzRGB = f['data'][0]
+    label = f['label'][0]
+    data = xyzRGB[::].reshape(1,-1,3)
     seg = label[::].reshape(1,-1)
     print("data shape, ", data.shape, " seg shape", seg.shape)
     seg_pred_np, pred_np = extractor(data)
     print(pred_np.shape, f['label'][::].reshape(1,-1).shape)
-    print(calculate_sem_IoU(pred_np, f['label'][::].reshape(1,-1)))
+    print(calculate_sem_IoU(pred_np, f['label'][0].reshape(1,-1)))
     print(visualization(data, seg, pred_np))

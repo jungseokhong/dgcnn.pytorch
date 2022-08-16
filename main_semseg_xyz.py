@@ -16,7 +16,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.optim.lr_scheduler import CosineAnnealingLR, StepLR
-from data import FREEMUG
+from data import FREEMUGSPOON
 from model import DGCNN_semseg_xyz
 import numpy as np
 from torch.utils.data import DataLoader
@@ -52,7 +52,7 @@ def _init_():
 
 
 def calculate_sem_IoU(pred_np, seg_np, visual=False):
-    num_classes = 2
+    num_classes = 3
     I_all = np.zeros(num_classes)
     U_all = np.zeros(num_classes)
     for sem_idx in range(seg_np.shape[0]):
@@ -146,9 +146,9 @@ def visualization(visu, visu_format, data, seg, pred, semseg_colors):
 
         
 def train(args, io):
-    train_loader = DataLoader(FREEMUG(partition='train', num_points=args.num_points), 
+    train_loader = DataLoader(FREEMUGSPOON(partition='train', num_points=args.num_points), 
                               num_workers=8, batch_size=args.batch_size, shuffle=True, drop_last=True)
-    test_loader = DataLoader(FREEMUG(partition='test', num_points=args.num_points), 
+    test_loader = DataLoader(FREEMUGSPOON(partition='test', num_points=args.num_points), 
                             num_workers=8, batch_size=args.test_batch_size, shuffle=True, drop_last=False)
 
     device = torch.device("cuda" if args.cuda else "cpu")
@@ -176,9 +176,6 @@ def train(args, io):
         scheduler = StepLR(opt, 20, 0.5, args.epochs)
 
     criterion = cal_loss
-    loss_func = losses.TripletMarginLoss(distance = CosineSimilarity(), 
-                        reducer = ThresholdReducer(high=0.3), 
-                        embedding_regularizer = LpRegularizer())
 
     best_test_iou = 0
     for epoch in range(args.epochs):
@@ -210,9 +207,9 @@ def train(args, io):
             ## print(f"seg_pred {seg_pred.size()} seg_pred view {seg_pred.view(-1,7).size()} seg {seg.size()} seg.view {seg.view(-1,1).size()} seg view squeeze {seg.view(-1,1).squeeze().size()}")
             ## seg_pred torch.Size([32, 4096, 7]) seg_pred view torch.Size([131072, 7]) seg torch.Size([32, 4096]) seg.view torch.Size([131072, 1]) seg view squeeze torch.Size([131072])
             # print(f"seg {seg_pred.view(7,-1).size()}, label {seg.view(-1,1).squeeze().size()}")
-            # print(seg_pred.shape, seg.shape, np.unique(seg.detach().cpu().numpy()))
+            print(seg_pred.view(-1,3).shape, seg.view(-1,1).squeeze().shape, np.unique(seg.detach().cpu().numpy()), batch_size)
             # loss_tri = loss_func(seg_pred.view(-1, 2), seg.view(-1,1).squeeze())
-            loss = criterion(seg_pred.view(-1, 2), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
+            loss = criterion(seg_pred.view(-1, 3), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
             # loss = loss_tri + loss_cri
             if cnt % 100 == 1:
                 # print(f"epoch {epoch}, batch {cnt}, loss_tri {loss_tri}, loss_cri {loss_cri}, loss {loss}")
@@ -272,7 +269,7 @@ def train(args, io):
             seg_pred = seg_pred.permute(0, 2, 1).contiguous()
             # print("after permute ", seg_pred.shape)
             # loss_tri = loss_func(seg_pred.view(-1, 2), seg.view(-1,1).squeeze())
-            loss = criterion(seg_pred.view(-1, 2), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
+            loss = criterion(seg_pred.view(-1, 3), seg.view(-1,1).squeeze()) ## CHECK shapes comparing (N X 4096, 1) against (N X 4096)
             # loss = loss_tri + loss_cri
 
             pred = seg_pred.max(dim=2)[1]
@@ -416,7 +413,7 @@ if __name__ == "__main__":
                         help='random seed (default: 1)')
     parser.add_argument('--eval', type=bool,  default=False,
                         help='evaluate the model')
-    parser.add_argument('--num_points', type=int, default=1024,
+    parser.add_argument('--num_points', type=int, default=2048,
                         help='num of points to use')
     parser.add_argument('--dropout', type=float, default=0.5,
                         help='dropout rate')
