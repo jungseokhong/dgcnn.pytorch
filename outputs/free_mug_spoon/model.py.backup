@@ -438,7 +438,7 @@ class DGCNN_semseg_xyz(nn.Module):
     def forward(self, x):
         batch_size = x.size(0)
         num_points = x.size(2)
-        print("forward 0 shape, ", x.size())
+        # print("forward 0 shape, ", x.size())
         ## torch.Size([32, 6, 4096]) 
         x = get_graph_feature(x, k=self.k, dim9=False) ##True to False   # (batch_size, 9, num_points) -> (batch_size, 9*2, num_points, k)
         # print("after get graph, ", x.size())

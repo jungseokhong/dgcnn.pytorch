@@ -1,0 +1,74 @@
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_spoon_part', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=2048, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_spoon_part', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=2048, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_spoon_part', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=2048, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Namespace(batch_size=32, dataset='FREEMUG', dropout=0.5, emb_dims=1024, epochs=100, eval=False, exp_name='free_mug_spoon_part', k=20, lr=0.001, model='dgcnn', model_root='', momentum=0.9, no_cuda=False, num_points=2048, scheduler='cos', seed=1, test_area='all', test_batch_size=16, use_sgd=True, visu='', visu_format='ply')
+Using GPU : 0 from 1 devices
+Train 0, loss: 0.736165, train acc: 0.911941, train avg acc: 0.884154, train iou: 0.806548
+Test 0, loss: 0.699649, test acc: 0.946408, test avg acc: 0.946395, test iou: 0.889595
+Train 1, loss: 0.686941, train acc: 0.961532, train avg acc: 0.951271, train iou: 0.911113
+Test 1, loss: 0.678355, test acc: 0.965248, test avg acc: 0.960791, test iou: 0.927493
+Train 2, loss: 0.680604, train acc: 0.966558, train avg acc: 0.957947, train iou: 0.922537
+Test 2, loss: 0.675642, test acc: 0.969775, test avg acc: 0.964568, test iou: 0.935702
+Train 3, loss: 0.676449, train acc: 0.969671, train avg acc: 0.961786, train iou: 0.929520
+Test 3, loss: 0.670632, test acc: 0.973431, test avg acc: 0.971206, test iou: 0.944008
+Train 4, loss: 0.674352, train acc: 0.971439, train avg acc: 0.963952, train iou: 0.933469
+Test 4, loss: 0.667256, test acc: 0.975146, test avg acc: 0.971091, test iou: 0.946743
+Train 5, loss: 0.671461, train acc: 0.973957, train avg acc: 0.967197, train iou: 0.939402
+Test 5, loss: 0.663950, test acc: 0.977630, test avg acc: 0.974693, test iou: 0.952196
+Train 6, loss: 0.669041, train acc: 0.976397, train avg acc: 0.970436, train iou: 0.945158
+Test 6, loss: 0.662494, test acc: 0.980413, test avg acc: 0.981170, test iou: 0.958264
+Train 7, loss: 0.665597, train acc: 0.979195, train avg acc: 0.974190, train iou: 0.951867
+Test 7, loss: 0.657644, test acc: 0.984089, test avg acc: 0.983113, test iou: 0.965931
+Train 8, loss: 0.662953, train acc: 0.981621, train avg acc: 0.977384, train iou: 0.957635
+Test 8, loss: 0.659510, test acc: 0.982861, test avg acc: 0.982683, test iou: 0.963280
+Train 9, loss: 0.661103, train acc: 0.983481, train avg acc: 0.979725, train iou: 0.961883
+Test 9, loss: 0.674902, test acc: 0.973863, test avg acc: 0.962581, test iou: 0.942333
+Train 10, loss: 0.658708, train acc: 0.985510, train avg acc: 0.982130, train iou: 0.966268
+Test 10, loss: 0.652701, test acc: 0.988700, test avg acc: 0.984886, test iou: 0.975029
+Train 11, loss: 0.656928, train acc: 0.987197, train avg acc: 0.984144, train iou: 0.969973
+Test 11, loss: 0.657873, test acc: 0.988937, test avg acc: 0.990194, test iou: 0.976054
+Train 12, loss: 0.655382, train acc: 0.988611, train avg acc: 0.985827, train iou: 0.973088
+Test 12, loss: 0.650920, test acc: 0.991469, test avg acc: 0.989558, test iou: 0.981399
+Train 13, loss: 0.654406, train acc: 0.989478, train avg acc: 0.986931, train iou: 0.975066
+Test 13, loss: 0.653637, test acc: 0.993506, test avg acc: 0.994137, test iou: 0.985707
+Train 14, loss: 0.653264, train acc: 0.990489, train avg acc: 0.988186, train iou: 0.977393
+Test 14, loss: 0.650131, test acc: 0.992669, test avg acc: 0.993264, test iou: 0.983963
+Train 15, loss: 0.652538, train acc: 0.991150, train avg acc: 0.989027, train iou: 0.978939
+Test 15, loss: 0.662653, test acc: 0.990730, test avg acc: 0.992341, test iou: 0.979080
+Train 16, loss: 0.651628, train acc: 0.991792, train avg acc: 0.989875, train iou: 0.980480
+Test 16, loss: 0.648171, test acc: 0.993966, test avg acc: 0.994267, test iou: 0.986743
+Train 17, loss: 0.651312, train acc: 0.992131, train avg acc: 0.990300, train iou: 0.981274
+Test 17, loss: 0.648626, test acc: 0.993813, test avg acc: 0.994802, test iou: 0.986364
+Train 18, loss: 0.650467, train acc: 0.992788, train avg acc: 0.991134, train iou: 0.982800
+Test 18, loss: 0.644609, test acc: 0.995884, test avg acc: 0.995386, test iou: 0.991349
+Train 19, loss: 0.649989, train acc: 0.993204, train avg acc: 0.991664, train iou: 0.983795
+Test 19, loss: 0.648070, test acc: 0.993855, test avg acc: 0.994138, test iou: 0.986812
+Train 20, loss: 0.649867, train acc: 0.993336, train avg acc: 0.991816, train iou: 0.984073
+Test 20, loss: 0.646333, test acc: 0.995773, test avg acc: 0.995312, test iou: 0.991188
+Train 21, loss: 0.649349, train acc: 0.993742, train avg acc: 0.992354, train iou: 0.985060
+Test 21, loss: 0.646744, test acc: 0.996066, test avg acc: 0.996574, test iou: 0.991481
+Train 22, loss: 0.649185, train acc: 0.993919, train avg acc: 0.992589, train iou: 0.985486
+Test 22, loss: 0.643771, test acc: 0.996708, test avg acc: 0.996981, test iou: 0.992935
+Train 23, loss: 0.648703, train acc: 0.994279, train avg acc: 0.993026, train iou: 0.986327
+Test 23, loss: 0.643511, test acc: 0.997091, test avg acc: 0.996887, test iou: 0.993956
+Train 24, loss: 0.648371, train acc: 0.994545, train avg acc: 0.993388, train iou: 0.986998
+Test 24, loss: 0.650826, test acc: 0.994810, test avg acc: 0.995799, test iou: 0.988460
+Train 25, loss: 0.648195, train acc: 0.994702, train avg acc: 0.993602, train iou: 0.987380
+Test 25, loss: 0.644916, test acc: 0.997231, test avg acc: 0.997545, test iou: 0.994105
+Train 26, loss: 0.647907, train acc: 0.994949, train avg acc: 0.993886, train iou: 0.987948
+Test 26, loss: 0.646801, test acc: 0.997021, test avg acc: 0.996113, test iou: 0.993573
+Train 27, loss: 0.647822, train acc: 0.994964, train avg acc: 0.993947, train iou: 0.988028
+Test 27, loss: 0.642891, test acc: 0.997482, test avg acc: 0.997505, test iou: 0.994747
+Train 28, loss: 0.647404, train acc: 0.995300, train avg acc: 0.994367, train iou: 0.988827
+Test 28, loss: 0.645156, test acc: 0.997447, test avg acc: 0.996968, test iou: 0.994733
+Train 29, loss: 0.647520, train acc: 0.995245, train avg acc: 0.994279, train iou: 0.988663
+Test 29, loss: 0.643413, test acc: 0.997649, test avg acc: 0.997822, test iou: 0.995184
+Train 30, loss: 0.647209, train acc: 0.995470, train avg acc: 0.994569, train iou: 0.989218
+Test 30, loss: 0.643574, test acc: 0.997482, test avg acc: 0.997365, test iou: 0.994803
+Train 31, loss: 0.647150, train acc: 0.995515, train avg acc: 0.994639, train iou: 0.989333
+Test 31, loss: 0.659915, test acc: 0.990660, test avg acc: 0.992742, test iou: 0.978549
+Train 32, loss: 0.646893, train acc: 0.995721, train avg acc: 0.994890, train iou: 0.989820
+Test 32, loss: 0.643527, test acc: 0.998172, test avg acc: 0.998044, test iou: 0.996327
